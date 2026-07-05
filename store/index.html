@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Xiaomi Lebanon — Official Online Store</title>
+<meta name="description" content="Xiaomi Lebanon Official Store — sealed, IMEI-registered devices with 24-month official warranty, serviced by MiCare. Cash on Delivery, Whish Money, next-day delivery to Beirut.">
+<meta name="theme-color" content="#FF6700">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   XIAOMI LEBANON — OFFICIAL STORE
+   Single-file storefront prototype (v1.0)
+   Design tokens per proposal §14. Sample catalogue data.
+   ============================================================ */
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  /* Color tokens (§14) */
+  --mi-primary:#FF6700;
+  --mi-pressed:#E25A00;
+  --ink:#0E0F12;
+  --body:#3F454E;
+  --muted:#5E6570;
+  --surface:#FFFFFF;
+  --cloud:#F4F5F7;
+  --stage:#F5F5F7;
+  --line:#E7E9ED;
+  --carbon-1:#0B0C0F;
+  --carbon-2:#1C1E24;
+  --success:#0E7C4A;
+  --alert:#C0271C;
+  /* Spacing 4pt */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+  /* Radius */
+  --r-ctrl:12px;--r-card:16px;--r-panel:24px;
+  /* Elevation */
+  --e1:0 1px 2px rgba(14,15,18,.06),0 1px 3px rgba(14,15,18,.05);
+  --e2:0 4px 12px rgba(14,15,18,.08),0 2px 4px rgba(14,15,18,.04);
+  --e3:0 12px 32px rgba(14,15,18,.14),0 4px 8px rgba(14,15,18,.06);
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --maxw:1180px;
+}
+
+html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--body);
+  background:var(--surface);
+  line-height:1.5;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body.rtl{font-family:'Noto Sans Arabic','Inter',sans-serif;direction:rtl}
+body[data-scroll-lock]{overflow:hidden}
+h1,h2,h3,h4{font-family:'Space Grotesk','Inter',sans-serif;color:var(--ink);line-height:1.15;font-weight:600}
+.rtl h1,.rtl h2,.rtl h3,.rtl h4{font-family:'Noto Sans Arabic',sans-serif}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+.tnum{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--mi-primary);outline-offset:2px;border-radius:6px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--s5)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.hidden{display:none!important}
+
+/* ---- Buttons ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);
+  font-weight:600;font-size:15px;border-radius:var(--r-ctrl);padding:12px 22px;
+  transition:background .15s var(--ease),transform .1s var(--ease),box-shadow .15s var(--ease);
+  min-height:44px;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--mi-primary);color:#fff}
+.btn-primary:hover{background:var(--mi-pressed)}
+.btn-ghost{background:var(--cloud);color:var(--ink)}
+.btn-ghost:hover{background:#E9EBEF}
+.btn-quiet{background:transparent;color:var(--mi-primary);padding:12px 10px}
+.btn-quiet:hover{color:var(--mi-pressed)}
+.btn-block{width:100%}
+.btn-lg{padding:15px 26px;font-size:16px;min-height:52px}
+
+/* ============================================================
+   SAMPLE DATA BANNER
+   ============================================================ */
+.data-banner{background:#FFF4E9;color:#7a4a10;border-bottom:1px solid #FBE0C4;
+  font-size:12.5px;text-align:center;padding:6px 16px;line-height:1.4}
+.data-banner b{color:#5a3708}
+
+/* ============================================================
+   ANNOUNCEMENT RIBBON (§5 zone 1)
+   ============================================================ */
+.ribbon{background:var(--carbon-1);color:#fff;font-size:13px;
+  display:flex;align-items:center;justify-content:center;gap:var(--s4);
+  padding:9px 16px;flex-wrap:wrap;text-align:center}
+.ribbon .dot{width:5px;height:5px;border-radius:50%;background:var(--mi-primary)}
+.ribbon strong{color:#fff;font-weight:600}
+.ribbon .cd{font-variant-numeric:tabular-nums;color:var(--mi-primary);font-weight:600}
+
+/* ============================================================
+   HEADER (§6)
+   ============================================================ */
+.header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+.header-inner{height:64px;display:flex;align-items:center;gap:var(--s5)}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;
+  font-size:18px;color:var(--ink);letter-spacing:-.01em;flex-shrink:0}
+.logo-mark{width:30px;height:30px;border-radius:8px;background:var(--mi-primary);
+  display:grid;place-items:center;color:#fff;font-weight:700;font-size:19px;font-family:'Space Grotesk'}
+.logo small{display:block;font-size:10px;font-weight:500;color:var(--muted);letter-spacing:.02em;
+  font-family:'Inter';margin-top:-2px}
+.nav{display:flex;align-items:center;gap:var(--s2);margin-inline-start:var(--s3)}
+.nav>button{padding:10px 14px;border-radius:10px;font-weight:500;font-size:15px;color:var(--body);
+  display:flex;align-items:center;gap:5px;transition:background .15s,color .15s}
+.nav>button:hover{background:var(--cloud);color:var(--ink)}
+.nav .caret{width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(45deg);margin-top:-3px;opacity:.5}
+.header-actions{margin-inline-start:auto;display:flex;align-items:center;gap:var(--s1)}
+.icon-btn{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;color:var(--ink);
+  transition:background .15s;position:relative}
+.icon-btn:hover{background:var(--cloud)}
+.icon-btn svg{width:22px;height:22px}
+.cart-count{position:absolute;top:5px;inset-inline-end:5px;background:var(--mi-primary);color:#fff;
+  font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:grid;
+  place-items:center;padding:0 3px;transform:scale(0);transition:transform .2s var(--ease)}
+.cart-count.show{transform:scale(1)}
+.lang-btn{font-weight:600;font-size:13px;padding:0 12px;height:42px;border-radius:11px;color:var(--ink)}
+.lang-btn:hover{background:var(--cloud)}
+
+/* Mega menu */
+.mega{position:absolute;top:64px;inset-inline:0;background:#fff;border-bottom:1px solid var(--line);
+  box-shadow:var(--e2);opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;z-index:59}
+.mega.open{opacity:1;visibility:visible;transform:translateY(0)}
+.mega-inner{max-width:var(--maxw);margin:0 auto;padding:var(--s6) var(--s5);display:grid;
+  grid-template-columns:1fr 1fr 300px;gap:var(--s6)}
+.mega-col h4{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+  margin-bottom:var(--s3)}
+.mega-col ul{list-style:none;display:grid;gap:2px}
+.mega-col a{display:flex;justify-content:space-between;padding:8px 10px;border-radius:9px;font-size:14.5px;
+  color:var(--body);transition:background .12s}
+.mega-col a:hover{background:var(--cloud);color:var(--ink)}
+.mega-col a .from{color:var(--muted);font-size:13px}
+.mega-feature{background:var(--stage);border-radius:var(--r-card);padding:var(--s5);display:flex;
+  flex-direction:column;gap:var(--s3)}
+.mega-feature .tag{font-size:11px;font-weight:700;color:var(--mi-primary);letter-spacing:.05em}
+.mega-feature .ph{aspect-ratio:1.3;border-radius:12px;background:
+  radial-gradient(circle at 60% 40%,#fff,#E8EAEE);display:grid;place-items:center}
+
+/* ============================================================
+   HERO (§5 zone 2)
+   ============================================================ */
+.hero{background:linear-gradient(135deg,var(--carbon-1),var(--carbon-2));color:#fff;
+  position:relative;overflow:hidden}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:var(--s8) var(--s5);
+  display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:var(--s6);min-height:460px}
+.hero-copy .eyebrow{color:var(--mi-primary);font-weight:600;font-size:13px;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:var(--s3)}
+.hero-copy h1{color:#fff;font-size:52px;line-height:1.05;letter-spacing:-.02em;margin-bottom:var(--s4)}
+.hero-copy p{color:#C3C7CE;font-size:18px;max-width:440px;margin-bottom:var(--s5)}
+.hero-cta{display:flex;gap:var(--s3);flex-wrap:wrap}
+.hero-cta .btn-ghost{background:rgba(255,255,255,.12);color:#fff}
+.hero-cta .btn-ghost:hover{background:rgba(255,255,255,.2)}
+.hero-visual{position:relative;aspect-ratio:1.05;border-radius:var(--r-panel);
+  background:radial-gradient(circle at 50% 35%,#2a2d35,#0d0e11);display:grid;place-items:center;
+  box-shadow:inset 0 0 60px rgba(0,0,0,.4)}
+.hero-visual .device{font-size:120px;filter:drop-shadow(0 20px 40px rgba(255,103,0,.3))}
+.hero-badge{position:absolute;bottom:20px;inset-inline-start:20px;background:rgba(255,255,255,.1);
+  backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:12px;
+  padding:10px 14px;font-size:13px;display:flex;align-items:center;gap:8px}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,103,0,.18),transparent 65%);
+  top:-200px;inset-inline-end:-150px;pointer-events:none}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section{padding:var(--s8) 0}
+.section-sm{padding:var(--s7) 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:var(--s6);gap:var(--s4)}
+.section-head h2{font-size:32px;letter-spacing:-.01em}
+.section-head p{color:var(--muted);font-size:15px;margin-top:6px}
+.section-head .link{color:var(--mi-primary);font-weight:600;font-size:15px;white-space:nowrap}
+
+/* Trust strip */
+.trust-strip{background:var(--cloud);border-block:1px solid var(--line)}
+.trust-strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);padding-block:var(--s5)}
+.trust-item{display:flex;align-items:center;gap:12px}
+.trust-item .ti-ic{width:40px;height:40px;border-radius:11px;background:#fff;box-shadow:var(--e1);
+  display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.trust-item b{display:block;color:var(--ink);font-size:14px;font-weight:600}
+.trust-item span{font-size:12.5px;color:var(--muted)}
+
+/* Category bento (§5 zone 5) */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);grid-auto-rows:150px}
+.bento-tile{background:var(--stage);border-radius:var(--r-card);padding:var(--s5);position:relative;
+  overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.bento-tile:hover{transform:translateY(-3px);box-shadow:var(--e2)}
+.bento-tile .emoji{font-size:38px}
+.bento-tile h3{font-size:17px}
+.bento-tile span{font-size:12.5px;color:var(--muted)}
+.bento-tile.wide{grid-column:span 2}
+.bento-tile.tall{grid-row:span 2}
+.bento-tile.dark{background:linear-gradient(135deg,var(--carbon-1),var(--carbon-2))}
+.bento-tile.dark h3{color:#fff}.bento-tile.dark span{color:#B9BDC5}
+
+/* Rails */
+.rail{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:var(--s3);margin:0 calc(-1*var(--s5));padding-inline:var(--s5);scrollbar-width:thin}
+.rail::-webkit-scrollbar{height:6px}
+.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.rail>*{scroll-snap-align:start;flex:0 0 auto}
+
+/* Product card (§8) */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+  width:100%}
+.rail .pcard{width:250px}
+.pcard:hover{transform:translateY(-3px);box-shadow:var(--e2)}
+.pcard-stage{background:var(--stage);aspect-ratio:1;display:grid;place-items:center;position:relative;
+  font-size:74px;cursor:pointer}
+.pcard-badges{position:absolute;top:10px;inset-inline-start:10px;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.badge{font-size:10.5px;font-weight:700;padding:4px 8px;border-radius:7px;letter-spacing:.02em}
+.badge-new{background:var(--ink);color:#fff}
+.badge-alloc{background:#EDE3FF;color:#6B3FC4}
+.badge-best{background:#FFF0E5;color:var(--mi-pressed)}
+.wish{position:absolute;top:10px;inset-inline-end:10px;width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.9);display:grid;place-items:center;box-shadow:var(--e1);font-size:16px;color:var(--muted)}
+.wish.on{color:var(--alert)}
+.pcard-body{padding:var(--s4);display:flex;flex-direction:column;gap:6px;flex:1}
+.pcard-cat{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.pcard-name{font-size:15px;font-weight:600;color:var(--ink);line-height:1.3;cursor:pointer;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:39px}
+.pcard-spec{font-size:12.5px;color:var(--muted)}
+.pcard-rating{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--muted)}
+.stars{color:#F5A623;letter-spacing:1px;font-size:13px}
+.pcard-foot{margin-top:auto;padding-top:var(--s3);display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.price{display:flex;flex-direction:column;line-height:1.1}
+.price .rrp{font-size:10px;color:var(--muted);font-weight:500}
+.price .amt{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.stock-line{font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:5px;margin-top:2px}
+.stock-line.in{color:var(--success)}
+.stock-line.low{color:var(--mi-pressed)}
+.stock-line.pre{color:#6B3FC4}
+.stock-line::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.add-btn{width:42px;height:42px;border-radius:11px;background:var(--mi-primary);color:#fff;
+  display:grid;place-items:center;flex-shrink:0;transition:background .15s,transform .1s}
+.add-btn:hover{background:var(--mi-pressed)}
+.add-btn:active{transform:scale(.92)}
+.add-btn svg{width:20px;height:20px}
+
+/* Ecosystem story (§5 zone 4) */
+.eco{background:linear-gradient(135deg,var(--carbon-1),var(--carbon-2));color:#fff;border-radius:var(--r-panel);
+  padding:var(--s7);overflow:hidden}
+.eco h2{color:#fff;font-size:30px;margin-bottom:var(--s2)}
+.eco>.wrap-inner>p{color:#B9BDC5;max-width:520px;margin-bottom:var(--s6)}
+.eco-track{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.eco-moment{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-card);
+  padding:var(--s5);transition:background .2s}
+.eco-moment:hover{background:rgba(255,255,255,.1)}
+.eco-moment .time{color:var(--mi-primary);font-weight:600;font-size:13px;letter-spacing:.05em}
+.eco-moment h4{color:#fff;font-size:18px;margin:8px 0}
+.eco-moment p{color:#B9BDC5;font-size:14px;margin-bottom:var(--s4)}
+.eco-chips{display:flex;flex-wrap:wrap;gap:6px}
+.eco-chip{background:rgba(255,255,255,.1);border-radius:20px;padding:5px 11px;font-size:12.5px;
+  cursor:pointer;transition:background .15s}
+.eco-chip:hover{background:var(--mi-primary)}
+
+/* Bundles (§5 zone 7) */
+.bundles{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.bundle{border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;display:flex;flex-direction:column}
+.bundle-top{background:var(--stage);padding:var(--s5);display:flex;gap:var(--s2);font-size:44px;justify-content:center}
+.bundle-body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s2);flex:1}
+.bundle-body h3{font-size:18px}
+.bundle-items{font-size:13px;color:var(--muted);flex:1}
+.bundle-value{background:#EAF7F0;color:var(--success);font-size:12px;font-weight:600;
+  padding:6px 10px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;align-self:flex-start}
+.bundle-foot{display:flex;align-items:center;justify-content:space-between;margin-top:var(--s2)}
+
+/* Reviews wall (§5 zone 10) */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.review{border:1px solid var(--line);border-radius:var(--r-card);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3)}
+.review-head{display:flex;align-items:center;gap:12px}
+.review-av{width:42px;height:42px;border-radius:50%;background:var(--stage);display:grid;place-items:center;
+  font-weight:700;color:var(--mi-primary);font-size:16px}
+.review-head b{display:block;color:var(--ink);font-size:14px}
+.review-verified{font-size:11.5px;color:var(--success);font-weight:600;display:flex;align-items:center;gap:4px}
+.review p{font-size:14px;color:var(--body)}
+.review .prod{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:var(--s3)}
+
+/* ============================================================
+   FOOTER (§5 zone 14)
+   ============================================================ */
+.footer{background:var(--carbon-1);color:#B9BDC5;padding:var(--s8) 0 var(--s5)}
+.footer-trust{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);padding-bottom:var(--s6);
+  border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:var(--s6)}
+.footer-trust .ft-ic{font-size:24px;margin-bottom:8px}
+.footer-trust b{color:#fff;display:block;font-size:14px;margin-bottom:4px}
+.footer-trust span{font-size:12.5px;line-height:1.5}
+.footer-cols{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:var(--s6);margin-bottom:var(--s6)}
+.footer-cols h5{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:var(--s4);font-weight:600}
+.footer-cols ul{list-style:none;display:grid;gap:10px}
+.footer-cols a{font-size:13.5px;color:#B9BDC5;transition:color .15s}
+.footer-cols a:hover{color:#fff}
+.footer-brand .logo{color:#fff;margin-bottom:var(--s4)}
+.footer-brand p{font-size:13px;max-width:280px;margin-bottom:var(--s4)}
+.pay-logos{display:flex;gap:8px;flex-wrap:wrap}
+.pay-logo{background:rgba(255,255,255,.1);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:600;color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:var(--s5);display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:var(--s3);font-size:12.5px}
+
+/* ============================================================
+   MOBILE BOTTOM TAB BAR (§6)
+   ============================================================ */
+.tabbar{position:fixed;bottom:0;inset-inline:0;z-index:55;background:rgba(255,255,255,.96);
+  backdrop-filter:blur(14px);border-top:1px solid var(--line);display:none;
+  padding-bottom:env(safe-area-inset-bottom)}
+.tabbar-inner{display:grid;grid-template-columns:repeat(5,1fr)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 8px;color:var(--muted);
+  font-size:10.5px;font-weight:500;position:relative}
+.tab svg{width:23px;height:23px}
+.tab.active{color:var(--mi-primary)}
+.tab .cart-count{top:2px;inset-inline-end:calc(50% - 20px)}
+
+/* WhatsApp FAB */
+.wa-fab{position:fixed;bottom:22px;inset-inline-end:22px;z-index:54;width:56px;height:56px;border-radius:50%;
+  background:#25D366;box-shadow:var(--e3);display:grid;place-items:center;color:#fff;
+  transition:transform .2s var(--ease)}
+.wa-fab:hover{transform:scale(1.08)}
+.wa-fab svg{width:30px;height:30px}
+
+/* ============================================================
+   DRAWERS / SHEETS / OVERLAY
+   ============================================================ */
+.scrim{position:fixed;inset:0;background:rgba(11,12,15,.5);z-index:70;opacity:0;visibility:hidden;
+  transition:opacity .3s var(--ease),visibility .3s}
+.scrim.open{opacity:1;visibility:visible}
+
+/* Cart drawer (§10) */
+.drawer{position:fixed;top:0;inset-inline-end:0;height:100%;width:min(440px,100%);background:#fff;z-index:80;
+  transform:translateX(100%);transition:transform .3s var(--ease);display:flex;flex-direction:column}
+.rtl .drawer{inset-inline-end:auto;inset-inline-start:0;transform:translateX(-100%)}
+.drawer.open{transform:translateX(0)}
+.drawer-head{padding:var(--s5);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.drawer-head h3{font-size:20px}
+.drawer-body{flex:1;overflow-y:auto;padding:var(--s5)}
+.drawer-foot{border-top:1px solid var(--line);padding:var(--s5);background:#fff}
+.close-x{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:22px;color:var(--muted)}
+.close-x:hover{background:var(--cloud)}
+
+/* Free delivery progress */
+.freeship{background:var(--cloud);border-radius:12px;padding:12px 14px;margin-bottom:var(--s4)}
+.freeship p{font-size:13px;margin-bottom:8px}
+.freeship p b{color:var(--mi-primary)}
+.freeship-bar{height:7px;background:#E1E4E9;border-radius:4px;overflow:hidden}
+.freeship-fill{height:100%;background:var(--mi-primary);width:0;transition:width .4s var(--ease);border-radius:4px}
+
+/* Cart line item */
+.cline{display:flex;gap:12px;padding:var(--s4) 0;border-bottom:1px solid var(--line)}
+.cline-img{width:66px;height:66px;border-radius:12px;background:var(--stage);display:grid;place-items:center;font-size:32px;flex-shrink:0}
+.cline-info{flex:1;min-width:0}
+.cline-info b{font-size:14px;color:var(--ink);font-weight:600;display:block;line-height:1.3}
+.cline-info .p{font-size:14px;font-weight:700;color:var(--ink);margin-top:4px}
+.cline-ctrl{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.qty button{width:30px;height:30px;font-size:17px;color:var(--ink);display:grid;place-items:center}
+.qty button:hover{background:var(--cloud)}
+.qty span{min-width:30px;text-align:center;font-size:14px;font-weight:600}
+.remove{font-size:12.5px;color:var(--muted);text-decoration:underline}
+.remove:hover{color:var(--alert)}
+.attach-row{background:#FFF7F0;border:1px dashed #F5C89E;border-radius:12px;padding:12px;margin-top:var(--s4);
+  display:flex;align-items:center;gap:10px}
+.attach-row .em{font-size:26px}
+.attach-row .txt{flex:1;font-size:12.5px}
+.attach-row .txt b{color:var(--ink);font-size:13px}
+.attach-row button{font-size:12.5px;font-weight:600;color:var(--mi-primary);white-space:nowrap}
+.cart-empty{text-align:center;padding:var(--s8) var(--s4);color:var(--muted)}
+.cart-empty .em{font-size:52px;margin-bottom:var(--s4)}
+.summary-row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0}
+.summary-row.total{font-size:18px;font-weight:700;color:var(--ink);border-top:1px solid var(--line);
+  margin-top:8px;padding-top:12px}
+
+/* ============================================================
+   PDP SHEET (§9)
+   ============================================================ */
+.pdp{position:fixed;inset:0;z-index:85;background:#fff;transform:translateY(100%);
+  transition:transform .35s var(--ease);overflow-y:auto;overscroll-behavior:contain}
+.pdp.open{transform:translateY(0)}
+.pdp-bar{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);z-index:5;height:56px;display:flex;align-items:center;
+  padding:0 var(--s5);gap:var(--s3)}
+.pdp-bar .back{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink);font-size:15px}
+.pdp-content{max-width:1080px;margin:0 auto;padding:var(--s6) var(--s5) 120px}
+.pdp-top{display:grid;grid-template-columns:1fr 1fr;gap:var(--s7)}
+.pdp-gallery{position:sticky;top:80px;align-self:start}
+.pdp-main-img{background:var(--stage);border-radius:var(--r-panel);aspect-ratio:1;display:grid;
+  place-items:center;font-size:150px;position:relative}
+.pdp-360{position:absolute;bottom:14px;inset-inline-end:14px;background:#fff;box-shadow:var(--e1);
+  border-radius:20px;padding:7px 13px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.pdp-thumbs{display:flex;gap:10px;margin-top:14px}
+.pdp-thumb{width:64px;height:64px;border-radius:12px;background:var(--stage);display:grid;place-items:center;
+  font-size:30px;border:2px solid transparent;cursor:pointer}
+.pdp-thumb.on{border-color:var(--mi-primary)}
+.pdp-buy .bcat{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.pdp-buy h1{font-size:30px;margin:8px 0 10px}
+.pdp-buy .rating-anchor{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);margin-bottom:var(--s4)}
+.pdp-price{font-size:34px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.pdp-price small{font-size:13px;font-weight:500;color:var(--muted);display:block}
+.pdp-stock{margin:var(--s3) 0}
+.gov-select{margin:var(--s4) 0}
+.gov-select label{font-size:13px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px}
+.gov-select select{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;font-size:14px;
+  font-family:inherit;background:#fff;color:var(--ink)}
+.pdp-qty-row{display:flex;gap:12px;align-items:center;margin:var(--s4) 0}
+.pdp-actions{display:flex;gap:12px;margin:var(--s4) 0}
+/* Trust row (§9 — the key fix) */
+.trustrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:var(--cloud);border-radius:14px;
+  padding:14px;margin-top:var(--s4)}
+.trustrow div{text-align:center;font-size:11.5px;font-weight:600;color:var(--ink)}
+.trustrow div .em{display:block;font-size:20px;margin-bottom:4px}
+.pdp-section{margin-top:var(--s7);padding-top:var(--s6);border-top:1px solid var(--line)}
+.pdp-section h2{font-size:22px;margin-bottom:var(--s4)}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+.feat{background:var(--stage);border-radius:14px;padding:var(--s5)}
+.feat .em{font-size:32px;margin-bottom:10px}
+.feat b{color:var(--ink);display:block;margin-bottom:4px}
+.feat p{font-size:13.5px}
+.ai-compare{background:linear-gradient(135deg,#FFF7F0,#FFF);border:1px solid #F5D9BF;border-radius:16px;padding:var(--s5)}
+.ai-compare .ai-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
+  color:var(--mi-pressed);background:#FFEAD6;padding:4px 10px;border-radius:20px;margin-bottom:12px}
+.ai-compare p{font-size:14.5px;line-height:1.6}
+.spec-table{width:100%;border-collapse:collapse}
+.spec-table tr{border-bottom:1px solid var(--line)}
+.spec-table td{padding:12px 0;font-size:14px;vertical-align:top}
+.spec-table td:first-child{color:var(--muted);width:40%;font-weight:500}
+.spec-table td:last-child{color:var(--ink);font-weight:500}
+.qa-item{border-bottom:1px solid var(--line);padding:var(--s4) 0}
+.qa-item .q{font-weight:600;color:var(--ink);font-size:14.5px;display:flex;gap:8px}
+.qa-item .a{color:var(--body);font-size:14px;margin-top:6px;padding-inline-start:24px}
+/* PDP sticky mobile ATC */
+.pdp-sticky{position:fixed;bottom:0;inset-inline:0;background:#fff;border-top:1px solid var(--line);
+  padding:12px var(--s5);display:none;align-items:center;gap:12px;z-index:6;
+  padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.pdp-sticky .p{font-size:20px;font-weight:700;color:var(--ink)}
+
+/* ============================================================
+   CHECKOUT (§11)
+   ============================================================ */
+.checkout{position:fixed;inset:0;z-index:90;background:var(--cloud);transform:translateX(100%);
+  transition:transform .35s var(--ease);overflow-y:auto}
+.rtl .checkout{transform:translateX(-100%)}
+.checkout.open{transform:translateX(0)}
+.co-head{background:#fff;border-bottom:1px solid var(--line);height:60px;display:flex;align-items:center;
+  padding:0 var(--s5);gap:var(--s3);position:sticky;top:0;z-index:3}
+.co-head .logo{font-size:16px}
+.co-secure{margin-inline-start:auto;font-size:12.5px;color:var(--success);font-weight:600;display:flex;align-items:center;gap:6px}
+.co-grid{max-width:960px;margin:0 auto;padding:var(--s6) var(--s5);display:grid;grid-template-columns:1.4fr 1fr;gap:var(--s6);align-items:start}
+.co-step{background:#fff;border-radius:var(--r-card);margin-bottom:var(--s4);overflow:hidden;border:1px solid var(--line)}
+.co-step-head{padding:var(--s5);display:flex;align-items:center;gap:12px;cursor:pointer}
+.co-step-num{width:28px;height:28px;border-radius:50%;background:var(--cloud);color:var(--muted);
+  display:grid;place-items:center;font-weight:700;font-size:14px;flex-shrink:0}
+.co-step.active .co-step-num,.co-step.done .co-step-num{background:var(--mi-primary);color:#fff}
+.co-step-head h3{font-size:17px;flex:1}
+.co-step-head .edit{font-size:13px;color:var(--mi-primary);font-weight:600}
+.co-step-body{padding:0 var(--s5) var(--s5);display:none}
+.co-step.active .co-step-body{display:block}
+.field{margin-bottom:var(--s4)}
+.field label{font-size:13px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid var(--line);
+  border-radius:11px;font-size:15px;font-family:inherit;background:#fff;color:var(--ink)}
+.field input:focus,.field select:focus{border-color:var(--mi-primary);outline:none}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field .err{color:var(--alert);font-size:12px;margin-top:5px;display:none;align-items:center;gap:5px}
+.field.invalid input,.field.invalid select{border-color:var(--alert)}
+.field.invalid .err{display:flex}
+/* Payment options */
+.pay-opt{border:1.5px solid var(--line);border-radius:13px;padding:var(--s4);margin-bottom:12px;cursor:pointer;
+  display:flex;align-items:flex-start;gap:12px;transition:border-color .15s,background .15s}
+.pay-opt.sel{border-color:var(--mi-primary);background:#FFF9F4}
+.pay-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;margin-top:2px;position:relative}
+.pay-opt.sel .pay-radio{border-color:var(--mi-primary)}
+.pay-opt.sel .pay-radio::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--mi-primary)}
+.pay-opt b{color:var(--ink);font-size:15px;display:flex;align-items:center;gap:8px}
+.pay-opt .tag{font-size:10.5px;font-weight:700;background:var(--mi-primary);color:#fff;padding:2px 7px;border-radius:6px}
+.pay-opt p{font-size:12.5px;color:var(--muted);margin-top:4px}
+.co-summary{background:#fff;border-radius:var(--r-card);border:1px solid var(--line);padding:var(--s5);position:sticky;top:80px}
+.co-summary h3{font-size:17px;margin-bottom:var(--s4)}
+.co-sum-line{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.co-sum-line .em{width:44px;height:44px;border-radius:10px;background:var(--stage);display:grid;place-items:center;font-size:22px;flex-shrink:0}
+.co-sum-line .n{flex:1;font-size:13px;color:var(--ink);font-weight:500}
+.co-sum-line .q{font-size:12px;color:var(--muted)}
+.co-sum-line .pr{font-size:13.5px;font-weight:700;color:var(--ink)}
+.co-reassure{font-size:12px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+
+/* Confirmation (§11 post-order) */
+.confirm{text-align:center;max-width:520px;margin:0 auto;padding:var(--s8) var(--s5)}
+.confirm .check{width:84px;height:84px;border-radius:50%;background:#EAF7F0;display:grid;place-items:center;
+  margin:0 auto var(--s5);font-size:44px}
+.confirm h1{font-size:30px;margin-bottom:var(--s3)}
+.confirm .order-no{font-size:15px;color:var(--muted);margin-bottom:var(--s5)}
+.confirm .order-no b{color:var(--ink);font-size:18px;letter-spacing:.02em}
+.confirm-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:var(--s5);
+  text-align:start;margin-bottom:var(--s4)}
+.wa-continue{background:#25D366;color:#fff}
+.wa-continue:hover{background:#1eb857}
+
+/* ============================================================
+   SEARCH OVERLAY (§7)
+   ============================================================ */
+.search-overlay{position:fixed;inset:0;z-index:88;background:rgba(11,12,15,.4);opacity:0;visibility:hidden;
+  transition:opacity .2s,visibility .2s}
+.search-overlay.open{opacity:1;visibility:visible}
+.search-panel{background:#fff;max-width:680px;margin:60px auto 0;border-radius:var(--r-panel);overflow:hidden;
+  box-shadow:var(--e3);transform:translateY(-16px);transition:transform .2s var(--ease)}
+.search-overlay.open .search-panel{transform:translateY(0)}
+.search-input-wrap{display:flex;align-items:center;gap:12px;padding:var(--s5);border-bottom:1px solid var(--line)}
+.search-input-wrap svg{width:22px;height:22px;color:var(--muted);flex-shrink:0}
+.search-input-wrap input{flex:1;border:none;font-size:18px;font-family:inherit;color:var(--ink);background:none}
+.search-input-wrap input:focus{outline:none}
+.search-results{max-height:60vh;overflow-y:auto;padding:var(--s3)}
+.search-chips{display:flex;gap:8px;flex-wrap:wrap;padding:var(--s4) var(--s5)}
+.chip{background:var(--cloud);border-radius:20px;padding:7px 14px;font-size:13px;color:var(--body);cursor:pointer}
+.chip:hover{background:#E9EBEF}
+.sresult{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer}
+.sresult:hover{background:var(--cloud)}
+.sresult .em{width:44px;height:44px;border-radius:10px;background:var(--stage);display:grid;place-items:center;font-size:24px}
+.sresult .n{flex:1}
+.sresult .n b{color:var(--ink);font-size:14.5px;font-weight:600;display:block}
+.sresult .n span{font-size:12.5px;color:var(--muted)}
+.sresult .p{font-weight:700;color:var(--ink);font-size:14px}
+.no-results{text-align:center;padding:var(--s6);color:var(--muted)}
+.no-results .em{font-size:40px;margin-bottom:12px}
+
+/* Toast */
+.toast{position:fixed;bottom:90px;inset-inline:0;margin:0 auto;width:max-content;max-width:90%;
+  background:var(--ink);color:#fff;padding:13px 20px;border-radius:12px;font-size:14px;font-weight:500;
+  z-index:100;box-shadow:var(--e3);opacity:0;transform:translateY(16px);transition:opacity .25s,transform .25s;
+  display:flex;align-items:center;gap:10px}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* PLP view */
+.plp-head{padding:var(--s6) 0 var(--s4)}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:var(--s3);display:flex;gap:8px;align-items:center}
+.breadcrumb a:hover{color:var(--mi-primary)}
+.plp-head h1{font-size:32px}
+.plp-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:var(--s4) 0;border-bottom:1px solid var(--line);margin-bottom:var(--s5)}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+.filter-chip{border:1px solid var(--line);border-radius:20px;padding:8px 15px;font-size:13px;font-weight:500;
+  color:var(--body);transition:all .15s}
+.filter-chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sort-select{padding:9px 14px;border:1px solid var(--line);border-radius:11px;font-size:13.5px;font-family:inherit;background:#fff;font-weight:500}
+.plp-count{font-size:13.5px;color:var(--muted);margin-bottom:var(--s4)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:920px){
+  .hero-inner{grid-template-columns:1fr;min-height:auto;gap:var(--s6);padding-block:var(--s7)}
+  .hero-copy h1{font-size:38px}
+  .hero-visual{max-width:340px}
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .eco-track,.bundles,.reviews{grid-template-columns:1fr}
+  .footer-cols{grid-template-columns:1fr 1fr}
+  .footer-trust{grid-template-columns:1fr 1fr}
+  .trust-strip .wrap{grid-template-columns:1fr 1fr;gap:var(--s5)}
+  .pdp-top{grid-template-columns:1fr;gap:var(--s5)}
+  .pdp-gallery{position:static}
+  .co-grid{grid-template-columns:1fr}
+  .co-summary{position:static;order:-1}
+  .feat-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .wrap{padding:0 var(--s4)}
+  .nav,.header .lang-btn,.header .desktop-only{display:none}
+  .tabbar{display:block}
+  body{padding-bottom:64px}
+  .wa-fab{bottom:80px}
+  .section{padding:var(--s7) 0}
+  .section-head h2{font-size:25px}
+  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .hero-copy h1{font-size:32px}
+  .pdp-content{padding:var(--s5) var(--s4) 120px}
+  .pdp-buy h1{font-size:24px}
+  .pdp-sticky{display:flex}
+  .pdp-actions{display:none}
+  .trustrow{grid-template-columns:1fr;text-align:start}
+  .trustrow div{display:flex;align-items:center;gap:10px;text-align:start}
+  .trustrow div .em{margin:0;font-size:22px}
+  .footer-trust,.footer-cols,.trust-strip .wrap{grid-template-columns:1fr}
+  .eco{padding:var(--s5)}
+  .bento-tile.wide{grid-column:span 2}
+  .pcard-stage{font-size:56px}
+  .toast{bottom:80px}
+  .drawer{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<!-- Honest sample-data notice -->
+<div class="data-banner" data-i18n="dataNotice">
+  <b>Prototype — sample catalogue.</b> Product data & prices are illustrative placeholders, pending official Eagle Plus / MiCare 2026 price documents and Xiaomi asset-bank photography.
+</div>
+
+<!-- Announcement ribbon -->
+<div class="ribbon">
+  <span data-i18n="ribbonShip">🚚 Free delivery on orders over <strong>$50</strong></span>
+  <span class="dot"></span>
+  <span data-i18n="ribbonDrop">Summer Drop ends in <span class="cd" id="countdown">--</span></span>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="logo" href="#" onclick="go('home');return false" aria-label="Xiaomi Lebanon Official Store">
+      <span class="logo-mark">mi</span>
+      <span>XIAOMI<small data-i18n="logoSub">Official Store · Lebanon</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <button aria-haspopup="true" onmouseenter="openMega(true)" onclick="openMega(true)">
+        <span data-i18n="navShop">Shop</span><span class="caret"></span>
+      </button>
+      <button onclick="go('eco')" data-i18n="navEco">Ecosystem</button>
+      <button onclick="go('offers')" data-i18n="navOffers">Offers</button>
+      <button onclick="go('support')" data-i18n="navSupport">Support</button>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn desktop-only" onclick="openSearch()" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      </button>
+      <button class="lang-btn" onclick="cycleLang()" id="langBtn" aria-label="Change language">EN</button>
+      <button class="icon-btn desktop-only" onclick="showToast(t('accountSoon'))" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+      </button>
+      <button class="icon-btn" onclick="openCart()" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <!-- Mega menu -->
+  <div class="mega" id="mega" onmouseleave="openMega(false)">
+    <div class="mega-inner">
+      <div class="mega-col">
+        <h4 data-i18n="megaDevices">Devices</h4>
+        <ul id="megaCol1"></ul>
+      </div>
+      <div class="mega-col">
+        <h4 data-i18n="megaHome">Home & Lifestyle</h4>
+        <ul id="megaCol2"></ul>
+      </div>
+      <div class="mega-feature">
+        <span class="tag" data-i18n="megaFeatured">FEATURED DROP</span>
+        <div class="ph" style="font-size:60px">🤖</div>
+        <div><b style="color:var(--ink);font-family:Space Grotesk" data-i18n="megaFeatName">Robot Vacuum 5 Pro</b>
+        <p style="font-size:13px;color:var(--muted)" data-i18n="megaFeatDesc">All-in-one mop & vacuum. First allocation open.</p></div>
+        <button class="btn btn-primary btn-block" onclick="openMega(false);openPDP('rv5pro')" data-i18n="megaFeatCta">View drop</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MAIN (home view) ============ -->
+<main id="view-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow" data-i18n="heroEyebrow">OFFICIAL · SEALED · WARRANTIED</div>
+        <h1 data-i18n="heroTitle">One account. One warranty. One intelligent home.</h1>
+        <p data-i18n="heroSub">The complete Xiaomi ecosystem — sealed boxes, IMEI-registered, 24-month official warranty, serviced by MiCare. Delivered tomorrow.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-lg" onclick="go('offers')" data-i18n="heroCta1">Shop the drop</button>
+          <button class="btn btn-ghost btn-lg" onclick="go('eco')" data-i18n="heroCta2">Explore ecosystem</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="device">🤖</div>
+        <div class="hero-badge">🛡️ <span data-i18n="heroBadge">24-month official warranty</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <div class="trust-strip">
+    <div class="wrap">
+      <div class="trust-item"><div class="ti-ic">🛡️</div><div><b data-i18n="ts1t">24-Month Warranty</b><span data-i18n="ts1s">Official & registered</span></div></div>
+      <div class="trust-item"><div class="ti-ic">📦</div><div><b data-i18n="ts2t">Sealed & Authentic</b><span data-i18n="ts2s">IMEI registered on order</span></div></div>
+      <div class="trust-item"><div class="ti-ic">🔧</div><div><b data-i18n="ts3t">MiCare Service</b><span data-i18n="ts3s">Nationwide centers</span></div></div>
+      <div class="trust-item"><div class="ti-ic">🚚</div><div><b data-i18n="ts4t">Next-Day Delivery</b><span data-i18n="ts4s">Beirut & Mount Lebanon</span></div></div>
+    </div>
+  </div>
+
+  <!-- Category bento -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><h2 data-i18n="catTitle">Shop by life zone</h2><p data-i18n="catSub">The whole ecosystem, organised the way you live.</p></div>
+      </div>
+      <div class="bento" id="bento"></div>
+    </div>
+  </section>
+
+  <!-- New arrivals rail -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="section-head">
+        <div><h2 data-i18n="newTitle">New in 2026</h2><p data-i18n="newSub">Just landed, sealed and ready.</p></div>
+        <a class="link" onclick="go('offers')" data-i18n="viewAll">View all →</a>
+      </div>
+      <div class="rail" id="newRail"></div>
+    </div>
+  </section>
+
+  <!-- Ecosystem story -->
+  <section class="section" id="ecoSection">
+    <div class="wrap">
+      <div class="eco">
+        <div class="wrap-inner">
+          <h2 data-i18n="ecoTitle">Your intelligent day</h2>
+          <p data-i18n="ecoSub">One tap connects them all. From the moment you wake to the moment the lights dim — the ecosystem works together.</p>
+          <div class="eco-track">
+            <div class="eco-moment">
+              <div class="time" data-i18n="ecoDawn">06:30 · DAWN</div>
+              <h4 data-i18n="ecoDawnT">Wake gently</h4>
+              <p data-i18n="ecoDawnP">Your Band tracks sleep and wakes you at the lightest phase.</p>
+              <div class="eco-chips"><span class="eco-chip" onclick="openPDP('band9')">Smart Band 9</span><span class="eco-chip" onclick="openPDP('bulb')">Smart Bulb</span></div>
+            </div>
+            <div class="eco-moment">
+              <div class="time" data-i18n="ecoDay">14:00 · HOME</div>
+              <h4 data-i18n="ecoDayT">Clean air, clean floors</h4>
+              <p data-i18n="ecoDayP">Purifier and robot vacuum run while you're out — your home resets itself.</p>
+              <div class="eco-chips"><span class="eco-chip" onclick="openPDP('purifier4')">Air Purifier 4</span><span class="eco-chip" onclick="openPDP('rv5pro')">Robot Vacuum 5 Pro</span></div>
+            </div>
+            <div class="eco-moment">
+              <div class="time" data-i18n="ecoNight">21:00 · NIGHT</div>
+              <h4 data-i18n="ecoNightT">Cinema mode</h4>
+              <p data-i18n="ecoNightP">TV, soundbar and bedside lamp shift into evening — one scene, every device.</p>
+              <div class="eco-chips"><span class="eco-chip" onclick="openPDP('tvspro')">TV S Pro 65″</span><span class="eco-chip" onclick="openPDP('soundbar')">Soundbar Pro</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Allocation drop -->
+  <section class="section-sm" id="offersSection">
+    <div class="wrap">
+      <div class="section-head">
+        <div><h2 data-i18n="dropTitle">Offers & Allocation Drops</h2><p data-i18n="dropSub">Real stock, real waitlists. No fake scarcity.</p></div>
+      </div>
+      <div class="grid" id="offersGrid"></div>
+    </div>
+  </section>
+
+  <!-- Smart bundles -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><h2 data-i18n="bunTitle">Named setups</h2><p data-i18n="bunSub">Complete experiences — value added, never a percentage off.</p></div>
+      </div>
+      <div class="bundles" id="bundles"></div>
+    </div>
+  </section>
+
+  <!-- Reviews wall -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="section-head">
+        <div><h2 data-i18n="revTitle">From verified owners</h2><p data-i18n="revSub">Real reviews from real orders.</p></div>
+      </div>
+      <div class="reviews" id="reviews"></div>
+    </div>
+  </section>
+
+  <!-- App + newsletter -->
+  <section class="section" id="supportSection">
+    <div class="wrap">
+      <div class="eco" style="background:linear-gradient(135deg,#141518,#26282e)">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:var(--s6);align-items:center">
+          <div>
+            <h2 style="color:#fff" data-i18n="nlTitle">Join the official list</h2>
+            <p style="color:#B9BDC5;margin:8px 0 20px" data-i18n="nlSub">Allocation drops reach your inbox first. Welcome perk: a free-delivery voucher on your first order.</p>
+            <div style="display:flex;gap:10px;max-width:420px;flex-wrap:wrap">
+              <input id="nlEmail" type="email" placeholder="you@email.com" style="flex:1;min-width:180px;padding:13px;border-radius:11px;border:none;font-size:15px;font-family:inherit">
+              <button class="btn btn-primary" onclick="subscribe()" data-i18n="nlBtn">Notify me</button>
+            </div>
+          </div>
+          <div style="font-size:90px" class="desktop-only">📱</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- PLP view -->
+<main id="view-plp" class="hidden">
+  <div class="wrap">
+    <div class="plp-head">
+      <div class="breadcrumb"><a onclick="go('home')" data-i18n="bcHome">Home</a> <span>›</span> <span id="plpCrumb"></span></div>
+      <h1 id="plpTitle"></h1>
+    </div>
+    <div class="plp-toolbar">
+      <div class="filter-chips" id="plpFilters"></div>
+      <select class="sort-select" id="plpSort" onchange="renderPLP()">
+        <option value="featured" data-i18n="sortFeatured">Featured</option>
+        <option value="price-asc" data-i18n="sortPriceAsc">Price: Low → High</option>
+        <option value="price-desc" data-i18n="sortPriceDesc">Price: High → Low</option>
+        <option value="rating" data-i18n="sortRating">Top rated</option>
+        <option value="newest" data-i18n="sortNewest">Newest</option>
+      </select>
+    </div>
+    <div class="plp-count" id="plpCount"></div>
+    <div class="grid" id="plpGrid" style="margin-bottom:64px"></div>
+  </div>
+</main>
+
+<!-- ============ SCRIMS / DRAWERS ============ -->
+<div class="scrim" id="scrim" onclick="closeAll()"></div>
+
+<!-- Cart drawer -->
+<aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3 data-i18n="cartTitle">Your bag</h3>
+    <button class="close-x" onclick="closeCart()" aria-label="Close">×</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<!-- PDP sheet -->
+<section class="pdp" id="pdp" aria-label="Product detail">
+  <div class="pdp-bar">
+    <button class="back" onclick="closePDP()">‹ <span data-i18n="back">Back</span></button>
+  </div>
+  <div class="pdp-content" id="pdpContent"></div>
+  <div class="pdp-sticky" id="pdpSticky"></div>
+</section>
+
+<!-- Checkout -->
+<section class="checkout" id="checkout" aria-label="Checkout">
+  <div class="co-head">
+    <span class="logo"><span class="logo-mark">mi</span></span>
+    <button class="close-x" onclick="closeCheckout()" style="margin-inline-start:0">×</button>
+    <span class="co-secure">🔒 <span data-i18n="secure">Secure checkout</span></span>
+  </div>
+  <div id="checkoutBody"></div>
+</section>
+
+<!-- Search overlay -->
+<div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-panel">
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input id="searchInput" placeholder="Search products, categories… (try 'sama3at')" oninput="doSearch(this.value)" autocomplete="off">
+      <button class="close-x" onclick="closeSearch()">×</button>
+    </div>
+    <div class="search-chips" id="searchChips"></div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- Mobile bottom tab bar -->
+<nav class="tabbar" aria-label="Mobile navigation">
+  <div class="tabbar-inner">
+    <button class="tab active" id="tab-home" onclick="go('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+      <span data-i18n="tabHome">Home</span>
+    </button>
+    <button class="tab" onclick="openMega(true)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <span data-i18n="tabCat">Categories</span>
+    </button>
+    <button class="tab" onclick="openSearch()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <span data-i18n="tabSearch">Search</span>
+    </button>
+    <button class="tab" onclick="openCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+      <span data-i18n="tabBag">Bag</span>
+      <span class="cart-count" id="cartCountMobile">0</span>
+    </button>
+    <button class="tab" onclick="showToast(t('accountSoon'))">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+      <span data-i18n="tabAcct">Account</span>
+    </button>
+  </div>
+</nav>
+
+<!-- WhatsApp FAB -->
+<a class="wa-fab" href="https://wa.me/9611000000?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Xiaomi%20store" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.3-1.7-1.3-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .5-.1.7.5l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1.1 2 1.2.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l2 1c.3.1.4.2.5.3.1.3.1.9-.1 1.6z"/></svg>
+</a>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-trust">
+      <div><div class="ft-ic">🛡️</div><b data-i18n="ft1t">Official warranty</b><span data-i18n="ft1s">Every device carries a 24-month official warranty, registered by IMEI at purchase.</span></div>
+      <div><div class="ft-ic">🔧</div><b data-i18n="ft2t">MiCare service</b><span data-i18n="ft2s">Nationwide service centers. Your name in the system from day one.</span></div>
+      <div><div class="ft-ic">📦</div><b data-i18n="ft3t">Sealed authenticity</b><span data-i18n="ft3s">Sealed boxes only. No grey stock. Official channel, guaranteed.</span></div>
+      <div><div class="ft-ic">💬</div><b data-i18n="ft4t">WhatsApp support</b><span data-i18n="ft4s">Order help and product advice, one message away.</span></div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-mark">mi</span><span style="color:#fff">XIAOMI</span></div>
+        <p data-i18n="ftBrand">Official Xiaomi online store for Lebanon, operated by Eagle Plus S.A.L — the authorised distributor.</p>
+        <div class="pay-logos">
+          <span class="pay-logo">💵 COD</span><span class="pay-logo">Whish</span><span class="pay-logo">VISA</span><span class="pay-logo">Mastercard</span>
+        </div>
+      </div>
+      <div><h5 data-i18n="ftShop">Shop</h5><ul>
+        <li><a onclick="openPLP('smartphones')" data-i18n="cSmart">Smartphones</a></li>
+        <li><a onclick="openPLP('wearables')" data-i18n="cWear">Wearables</a></li>
+        <li><a onclick="openPLP('audio')" data-i18n="cAudio">Audio</a></li>
+        <li><a onclick="openPLP('tv')" data-i18n="cTV">TV & Cinema</a></li>
+      </ul></div>
+      <div><h5 data-i18n="ftSupport">Support</h5><ul>
+        <li><a onclick="showToast(t('soon'))" data-i18n="ftWarranty">Warranty policy</a></li>
+        <li><a onclick="showToast(t('soon'))" data-i18n="ftCenters">Service centers</a></li>
+        <li><a onclick="showToast(t('soon'))" data-i18n="ftDelivery">Delivery & returns</a></li>
+        <li><a onclick="showToast(t('soon'))" data-i18n="ftFaq">FAQ</a></li>
+      </ul></div>
+      <div><h5 data-i18n="ftCompany">Company</h5><ul>
+        <li><a onclick="showToast(t('soon'))" data-i18n="ftAbout">About</a></li>
+        <li><a onclick="showToast(t('soon'))" data-i18n="ftB2b">Business solutions</a></li>
+        <li><a onclick="showToast(t('soon'))" data-i18n="ftAuth">Authenticity guarantee</a></li>
+      </ul></div>
+      <div><h5 data-i18n="ftConnect">Connect</h5><ul>
+        <li><a href="https://wa.me/9611000000" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a onclick="showToast(t('soon'))">Instagram</a></li>
+        <li><a onclick="showToast(t('soon'))">Facebook</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Eagle Plus S.A.L · <span data-i18n="ftRights">Official Xiaomi Distributor, Lebanon</span></span>
+      <span data-i18n="ftPrototype">Prototype build — sample data for demonstration.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   DATA — sample catalogue (illustrative placeholder prices)
+   ============================================================ */
+const CATS = {
+  smartphones:{en:'Smartphones',ar:'الهواتف',fr:'Smartphones',emoji:'📱'},
+  tablets:{en:'Tablets',ar:'الأجهزة اللوحية',fr:'Tablettes',emoji:'📲'},
+  wearables:{en:'Wearables',ar:'الأجهزة القابلة للارتداء',fr:'Objets connectés',emoji:'⌚'},
+  audio:{en:'Audio',ar:'الصوتيات',fr:'Audio',emoji:'🎧'},
+  tv:{en:'TV & Cinema',ar:'التلفاز والسينما',fr:'TV & Cinéma',emoji:'📺'},
+  monitors:{en:'Monitors',ar:'الشاشات',fr:'Moniteurs',emoji:'🖥️'},
+  smarthome:{en:'Smart Home',ar:'المنزل الذكي',fr:'Maison connectée',emoji:'🏠'},
+  appliances:{en:'Home Appliances',ar:'الأجهزة المنزلية',fr:'Électroménager',emoji:'🧹'},
+  mobility:{en:'Mobility',ar:'التنقل',fr:'Mobilité',emoji:'🛴'},
+  power:{en:'Power & Accessories',ar:'الطاقة والملحقات',fr:'Énergie & Accessoires',emoji:'🔌'}
+};
+
+// Prices are ILLUSTRATIVE placeholders (USD), not official RRP.
+const PRODUCTS = [
+  {id:'x14pro',cat:'smartphones',name:'Xiaomi 14 Pro',emoji:'📱',price:899,rating:4.8,reviews:214,spec:'6.73″ LTPO · Leica triple 50MP',stock:'in',new:true,best:true,
+    specs:{Display:'6.73″ LTPO AMOLED 120Hz',Chipset:'Snapdragon 8 Gen 3',Camera:'Leica 50MP triple',Battery:'4880mAh · 120W',Storage:'512GB'},
+    attach:['buds5','charger67','band9']},
+  {id:'redminote13',cat:'smartphones',name:'Redmi Note 13 Pro',emoji:'📱',price:329,rating:4.6,reviews:512,spec:'200MP camera · 120Hz AMOLED',stock:'in',best:true,
+    specs:{Display:'6.67″ AMOLED 120Hz',Chipset:'Snapdragon 7s Gen 2',Camera:'200MP OIS',Battery:'5100mAh · 67W',Storage:'256GB'},
+    attach:['buds5','charger67','band9']},
+  {id:'redmi13c',cat:'smartphones',name:'Redmi 13C',emoji:'📱',price:129,rating:4.4,reviews:389,spec:'50MP · 90Hz · big battery',stock:'in',
+    specs:{Display:'6.74″ 90Hz',Chipset:'MediaTek Helio G85',Camera:'50MP dual',Battery:'5000mAh · 18W',Storage:'128GB'},attach:['buds5','charger67']},
+  {id:'pad6',cat:'tablets',name:'Xiaomi Pad 6',emoji:'📲',price:349,rating:4.7,reviews:158,spec:'11″ 144Hz · 8840mAh',stock:'in',new:true,
+    specs:{Display:'11″ 2.8K 144Hz',Chipset:'Snapdragon 870',Battery:'8840mAh · 33W',Storage:'256GB'},attach:['buds5','charger67']},
+  {id:'watchs4',cat:'wearables',name:'Watch S4 (Gold)',emoji:'⌚',price:229,rating:4.6,reviews:97,spec:'AMOLED · 15-day battery',stock:'low',new:true,best:true,
+    specs:{Display:'1.43″ AMOLED',Battery:'Up to 15 days',Health:'HR · SpO₂ · sleep',Water:'5ATM'},attach:['band9','buds5']},
+  {id:'band9',cat:'wearables',name:'Smart Band 9',emoji:'⌚',price:39,rating:4.7,reviews:823,spec:'1.62″ AMOLED · 21-day battery',stock:'in',best:true,
+    specs:{Display:'1.62″ AMOLED',Battery:'Up to 21 days',Health:'HR · SpO₂ · 150+ modes',Water:'5ATM'},attach:['watchs4','buds5']},
+  {id:'buds5',cat:'audio',name:'Buds 5 Pro',emoji:'🎧',price:99,rating:4.5,reviews:276,spec:'55dB ANC · Hi-Res',stock:'in',new:true,
+    specs:{Driver:'Dual dynamic',ANC:'Up to 55dB',Battery:'38h with case',Codec:'LDAC Hi-Res'},attach:['x14pro','band9']},
+  {id:'speaker',cat:'audio',name:'Sound Speaker',emoji:'🔊',price:69,rating:4.4,reviews:141,spec:'Room-filling 360° sound',stock:'in',
+    specs:{Output:'30W',Connect:'Wi-Fi · Bluetooth 5.0',Voice:'Google Assistant',Feature:'Stereo pairing'},attach:['tvspro','soundbar']},
+  {id:'tvspro',cat:'tv',name:'TV S Pro 65″ Mini LED',emoji:'📺',price:849,rating:4.8,reviews:88,spec:'4K 144Hz · Mini LED · Dolby Vision',stock:'in',new:true,best:true,
+    specs:{Panel:'65″ Mini LED 4K',Refresh:'144Hz',HDR:'Dolby Vision IQ',Sound:'Dolby Atmos',OS:'Google TV'},attach:['soundbar','tvbox','mesh']},
+  {id:'tva43',cat:'tv',name:'TV A Pro 43″',emoji:'📺',price:329,rating:4.5,reviews:203,spec:'4K · Google TV · Dolby',stock:'in',
+    specs:{Panel:'43″ 4K',HDR:'Dolby Vision',Sound:'Dolby Audio 20W',OS:'Google TV'},attach:['soundbar','tvbox']},
+  {id:'soundbar',cat:'tv',name:'Soundbar Pro',emoji:'🔉',price:169,rating:4.6,reviews:112,spec:'3.1ch · wireless subwoofer',stock:'in',
+    specs:{Channels:'3.1ch',Power:'160W',Sub:'Wireless subwoofer',Connect:'HDMI eARC · Bluetooth'},attach:['tvspro','tvbox']},
+  {id:'tvbox',cat:'tv',name:'TV Box S (2nd Gen)',emoji:'📦',price:59,rating:4.5,reviews:340,spec:'4K · Google TV · Dolby',stock:'in',
+    specs:{Output:'4K HDR',OS:'Google TV',Audio:'Dolby Atmos',RAM:'2GB'},attach:['tvspro','mesh']},
+  {id:'mon27',cat:'monitors',name:'G Pro 27i Gaming',emoji:'🖥️',price:279,rating:4.7,reviews:76,spec:'2K 180Hz · Fast IPS',stock:'in',new:true,
+    specs:{Panel:'27″ Fast IPS 2K',Refresh:'180Hz',Response:'1ms GtG',Sync:'Adaptive Sync'},attach:['lightbar','desklamp']},
+  {id:'mon24',cat:'monitors',name:'G24i Gaming',emoji:'🖥️',price:159,rating:4.5,reviews:134,spec:'24″ FHD 165Hz',stock:'in',
+    specs:{Panel:'24″ IPS FHD',Refresh:'165Hz',Response:'1ms',Sync:'Adaptive Sync'},attach:['lightbar','desklamp']},
+  {id:'purifier4',cat:'appliances',name:'Smart Air Purifier 4',emoji:'🌀',price:189,rating:4.7,reviews:167,spec:'Up to 48m² · HEPA H13',stock:'in',best:true,
+    specs:{Coverage:'Up to 48m²',Filter:'HEPA H13',CADR:'400 m³/h',Control:'Mi Home app'},attach:['filter','purifier4']},
+  {id:'filter',cat:'appliances',name:'Purifier Filter (H13)',emoji:'🔵',price:29,rating:4.8,reviews:410,spec:'Genuine replacement · 12-mo life',stock:'in',
+    specs:{Type:'HEPA H13',Life:'~12 months',Fits:'Air Purifier 4 series'},attach:['purifier4']},
+  {id:'rv5pro',cat:'appliances',name:'Robot Vacuum 5 Pro',emoji:'🤖',price:499,rating:4.8,reviews:64,spec:'All-in-one mop & vacuum · auto-empty',stock:'low',new:true,best:true,
+    specs:{Suction:'6000Pa',Feature:'Mop + vacuum + auto-empty',Navigation:'LiDAR',Battery:'Up to 180 min'},attach:['dustmite','filter']},
+  {id:'airfryer',cat:'appliances',name:'Smart Air Fryer 6.5L',emoji:'🍟',price:99,rating:4.6,reviews:289,spec:'6.5L · app recipes',stock:'in',
+    specs:{Capacity:'6.5L',Control:'Mi Home app',Presets:'100+ recipes',Power:'1800W'},attach:['toaster']},
+  {id:'lock',cat:'smarthome',name:'Smart Door Lock Pro',emoji:'🔐',price:239,rating:4.6,reviews:58,spec:'Fingerprint · app · passcode',stock:'in',new:true,
+    specs:{Unlock:'Fingerprint · PIN · app · key',Camera:'Built-in peephole',Battery:'~6 months',Alerts:'Real-time app'},attach:['camera','doorbell']},
+  {id:'camera',cat:'smarthome',name:'Smart Camera C400',emoji:'📷',price:49,rating:4.5,reviews:312,spec:'2.5K · AI detection',stock:'in',
+    specs:{Resolution:'2.5K',Feature:'AI human detection',Vision:'Colour night vision',Storage:'microSD · cloud'},attach:['camera','doorbell']},
+  {id:'bulb',cat:'smarthome',name:'Smart Bulb Essential',emoji:'💡',price:15,rating:4.6,reviews:520,spec:'16M colours · app',stock:'in',
+    specs:{Colours:'16 million',Control:'Mi Home · voice',Power:'9W',Feature:'Scenes & schedules'},attach:['bulb','mesh']},
+  {id:'scooter6',cat:'mobility',name:'Electric Scooter 6 Ultra',emoji:'🛴',price:799,rating:4.7,reviews:41,spec:'70km range · dual brake',stock:'pre',new:true,best:true,
+    specs:{Range:'Up to 70km',Motor:'Peak 1000W',Brakes:'Dual disc + E-ABS',Weight:'Foldable'},attach:['charger2','tag']},
+  {id:'charger2',cat:'power',name:'Fast Charger 2 (67W)',emoji:'🔌',price:35,rating:4.6,reviews:198,spec:'67W GaN · dual port',stock:'in',
+    specs:{Output:'67W',Tech:'GaN',Ports:'USB-C + USB-A',Feature:'Foldable pins'},attach:['x14pro','scooter6']},
+  {id:'charger67',cat:'power',name:'67W Wall Charger',emoji:'⚡',price:25,rating:4.5,reviews:263,spec:'Turbo charge · compact',stock:'in',
+    specs:{Output:'67W',Ports:'USB-C',Feature:'Turbo charge'},attach:['x14pro','redminote13']},
+  {id:'tag',cat:'power',name:'Xiaomi Tag',emoji:'🏷️',price:19,rating:4.4,reviews:176,spec:'Find anything · Find Network',stock:'in',
+    specs:{Network:'Find My compatible',Range:'Bluetooth',Battery:'Replaceable CR2032'},attach:['scooter6']},
+  {id:'lightbar',cat:'power',name:'Monitor Light Bar',emoji:'💡',price:45,rating:4.7,reviews:143,spec:'Screen glare-free light',stock:'in',
+    specs:{Feature:'No screen glare',Control:'Wireless dial',Temp:'Adjustable 2700–6500K'},attach:['mon27','desklamp']},
+  {id:'desklamp',cat:'power',name:'Desk Lamp 2',emoji:'🛋️',price:55,rating:4.6,reviews:88,spec:'App control · eye-care',stock:'in',
+    specs:{Feature:'Eye-care flicker-free',Control:'Mi Home app',Temp:'2600–5000K'},attach:['mon27','lightbar']},
+  {id:'dustmite',cat:'appliances',name:'Dust Mite Vacuum',emoji:'🧹',price:79,rating:4.5,reviews:66,spec:'UV · deep-clean fabrics',stock:'in',
+    specs:{Feature:'UV sterilisation',Suction:'12000Pa',Use:'Mattress & sofa'},attach:['rv5pro']},
+  {id:'mesh',cat:'smarthome',name:'Mesh System AX3000',emoji:'📶',price:89,rating:4.6,reviews:121,spec:'Whole-home Wi-Fi 6',stock:'in',
+    specs:{Standard:'Wi-Fi 6',Speed:'AX3000',Coverage:'Whole-home mesh',Ports:'Gigabit'},attach:['tvspro','tvbox']},
+  {id:'toaster',cat:'appliances',name:'Smart Toaster',emoji:'🍞',price:29,rating:4.3,reviews:54,spec:'Even browning · compact',stock:'in',
+    specs:{Slots:'2',Control:'7 browning levels',Feature:'Reheat & defrost'},attach:['airfryer']}
+];
+
+const BUNDLES = [
+  {id:'cinema',name:{en:'Cinema Setup 65″',ar:'طقم السينما 65″',fr:'Setup Cinéma 65″'},emojis:['📺','🔉','📦'],
+   items:['tvspro','soundbar','tvbox'],value:{en:'Free delivery + priority setup slot',ar:'توصيل مجاني + موعد تركيب أولوية',fr:'Livraison gratuite + créneau prioritaire'}},
+  {id:'cleanair',name:{en:'Clean Air Kit',ar:'طقم الهواء النقي',fr:'Kit Air Pur'},emojis:['🌀','🔵','🧹'],
+   items:['purifier4','filter','dustmite'],value:{en:'Free delivery + filter reminder set up',ar:'توصيل مجاني + تذكير الفلتر',fr:'Livraison gratuite + rappel filtre'}},
+  {id:'ride',name:{en:'Ride Kit',ar:'طقم التنقل',fr:'Kit Mobilité'},emojis:['🛴','🔌','🏷️'],
+   items:['scooter6','charger2','tag'],value:{en:'Free delivery + gift wrap',ar:'توصيل مجاني + تغليف هدايا',fr:'Livraison gratuite + emballage cadeau'}}
+];
+
+const REVIEWS = [
+  {name:'Rami K.',city:'Beirut',prod:'Redmi Note 13 Pro',stars:5,text:{en:'Sealed box, warranty registered on the spot. Delivered next morning to Achrafieh. This is how it should be.',ar:'صندوق مغلق، الكفالة مسجلة فوراً. وصل صباح اليوم التالي إلى الأشرفية. هكذا يجب أن يكون.',fr:'Boîte scellée, garantie enregistrée immédiatement. Livré le lendemain à Achrafieh.'}},
+  {name:'Nour H.',city:'Jounieh',prod:'Robot Vacuum 5 Pro',stars:5,text:{en:'Was nervous buying big-ticket online in Lebanon. The MiCare registration in my account convinced me. Flawless.',ar:'كنت قلقة من الشراء بمبلغ كبير أونلاين في لبنان. تسجيل MiCare في حسابي طمأنني. ممتاز.',fr:'J\'avais peur d\'acheter cher en ligne au Liban. L\'enregistrement MiCare m\'a convaincue.'}},
+  {name:'Ali S.',city:'Saida',prod:'Smart Band 9',stars:5,text:{en:'Cash on delivery, WhatsApp confirmation before dispatch, real IMEI. Zero grey-market worry.',ar:'الدفع عند الاستلام، تأكيد واتساب قبل الشحن، IMEI حقيقي. لا قلق من السوق الرمادي.',fr:'Paiement à la livraison, confirmation WhatsApp, IMEI réel. Aucun souci.'}}
+];
+
+const GOVERNORATES = ['Beirut','Mount Lebanon','North','South','Bekaa','Nabatieh','Baalbek-Hermel','Akkar','Keserwan'];
+const SEARCH_SYNONYMS = {'sama3at':'audio','سماعات':'audio','robot vacuum':'rv5pro','ساعة':'wearables','watch':'wearables','airfryer':'airfryer','air fryer':'airfryer','tv':'tv','scooter':'mobility','sk..ter':'mobility','purifier':'purifier','filter':'filter','phone':'smartphones','هاتف':'smartphones','shashe':'monitors','camera':'camera'};
+
+/* ============================================================
+   i18n
+   ============================================================ */
+const I18N = {
+  en:{dataNotice:'<b>Prototype — sample catalogue.</b> Product data & prices are illustrative placeholders, pending official Eagle Plus / MiCare 2026 price documents and Xiaomi asset-bank photography.',
+    ribbonShip:'🚚 Free delivery on orders over <strong>$50</strong>',ribbonDrop:'Summer Drop ends in ',logoSub:'Official Store · Lebanon',
+    navShop:'Shop',navEco:'Ecosystem',navOffers:'Offers',navSupport:'Support',megaDevices:'Devices',megaHome:'Home & Lifestyle',megaFeatured:'FEATURED DROP',
+    megaFeatName:'Robot Vacuum 5 Pro',megaFeatDesc:'All-in-one mop & vacuum. First allocation open.',megaFeatCta:'View drop',
+    heroEyebrow:'OFFICIAL · SEALED · WARRANTIED',heroTitle:'One account. One warranty. One intelligent home.',
+    heroSub:'The complete Xiaomi ecosystem — sealed boxes, IMEI-registered, 24-month official warranty, serviced by MiCare. Delivered tomorrow.',
+    heroCta1:'Shop the drop',heroCta2:'Explore ecosystem',heroBadge:'24-month official warranty',
+    ts1t:'24-Month Warranty',ts1s:'Official & registered',ts2t:'Sealed & Authentic',ts2s:'IMEI registered on order',ts3t:'MiCare Service',ts3s:'Nationwide centers',ts4t:'Next-Day Delivery',ts4s:'Beirut & Mount Lebanon',
+    catTitle:'Shop by life zone',catSub:'The whole ecosystem, organised the way you live.',newTitle:'New in 2026',newSub:'Just landed, sealed and ready.',viewAll:'View all →',
+    ecoTitle:'Your intelligent day',ecoSub:'One tap connects them all. From the moment you wake to the moment the lights dim — the ecosystem works together.',
+    ecoDawn:'06:30 · DAWN',ecoDawnT:'Wake gently',ecoDawnP:'Your Band tracks sleep and wakes you at the lightest phase.',
+    ecoDay:'14:00 · HOME',ecoDayT:'Clean air, clean floors',ecoDayP:"Purifier and robot vacuum run while you're out — your home resets itself.",
+    ecoNight:'21:00 · NIGHT',ecoNightT:'Cinema mode',ecoNightP:'TV, soundbar and bedside lamp shift into evening — one scene, every device.',
+    dropTitle:'Offers & Allocation Drops',dropSub:'Real stock, real waitlists. No fake scarcity.',bunTitle:'Named setups',bunSub:'Complete experiences — value added, never a percentage off.',
+    revTitle:'From verified owners',revSub:'Real reviews from real orders.',nlTitle:'Join the official list',nlSub:'Allocation drops reach your inbox first. Welcome perk: a free-delivery voucher on your first order.',nlBtn:'Notify me',
+    cSmart:'Smartphones',cWear:'Wearables',cAudio:'Audio',cTV:'TV & Cinema',
+    ft1t:'Official warranty',ft1s:'Every device carries a 24-month official warranty, registered by IMEI at purchase.',ft2t:'MiCare service',ft2s:'Nationwide service centers. Your name in the system from day one.',ft3t:'Sealed authenticity',ft3s:'Sealed boxes only. No grey stock. Official channel, guaranteed.',ft4t:'WhatsApp support',ft4s:'Order help and product advice, one message away.',
+    ftBrand:'Official Xiaomi online store for Lebanon, operated by Eagle Plus S.A.L — the authorised distributor.',ftShop:'Shop',ftSupport:'Support',ftCompany:'Company',ftConnect:'Connect',
+    ftWarranty:'Warranty policy',ftCenters:'Service centers',ftDelivery:'Delivery & returns',ftFaq:'FAQ',ftAbout:'About',ftB2b:'Business solutions',ftAuth:'Authenticity guarantee',ftRights:'Official Xiaomi Distributor, Lebanon',ftPrototype:'Prototype build — sample data for demonstration.',
+    tabHome:'Home',tabCat:'Categories',tabSearch:'Search',tabBag:'Bag',tabAcct:'Account',cartTitle:'Your bag',back:'Back',secure:'Secure checkout',bcHome:'Home',
+    sortFeatured:'Featured',sortPriceAsc:'Price: Low → High',sortPriceDesc:'Price: High → Low',sortRating:'Top rated',sortNewest:'Newest',
+    addToBag:'Add to Bag',buyNow:'Buy Now',inStock:'In stock — delivery tomorrow to Beirut',lowStock:'Only a few left',preOrder:'First allocation — join waitlist',
+    warranty24:'24-month official warranty',micare:'MiCare serviced',codWhish:'COD & Whish accepted',completesSetup:'Completes your setup',fbt:'Frequently bought together',
+    specTitle:'Full specifications',aiCompare:'How it compares',reviewsQa:'Reviews & Questions',featTitle:'Why you\'ll love it',deliverTo:'Estimate delivery to',
+    checkout:'Checkout',freeShipMore:'Add <b>$AMT</b> for free delivery',freeShipDone:'🎉 You\'ve unlocked free delivery!',subtotal:'Subtotal',delivery:'Delivery',free:'Free',total:'Total',emptyCart:'Your bag is empty',startShopping:'Start shopping',
+    coDelivery:'Delivery details',coPayment:'Payment method',coReview:'Review & place order',placeOrder:'Place order',
+    fName:'Full name',fPhone:'WhatsApp phone',fGov:'Governorate',fArea:'Area',fAddr:'Address',fNote:'Delivery note (optional)',continue:'Continue',
+    payCod:'Cash on Delivery',payCodD:'Pay when it arrives. We confirm your order on WhatsApp before dispatch.',payWhish:'Whish Money',payWhishD:'Payment instructions sent instantly with your order reference.',payCard:'Card (Visa/Mastercard)',payCardD:'Secure card payment via local gateway.',
+    orderPlaced:'Order placed!',orderThanks:'Thank you — your order is confirmed.',orderNumber:'Order number',waContinue:'Send order to WhatsApp',createAccount:'Save my details — create my Warranty Locker',keepShopping:'Keep shopping',
+    accountSoon:'Account area — coming in the production build',soon:'Coming in the production build',addedToBag:'Added to bag',removed:'Removed',waitlistJoined:'You\'re on the waitlist — we\'ll notify you first',subscribed:'You\'re on the list! Voucher on the way.',bundleAdded:'Bundle added to bag',
+    reqField:'Required',invalidPhone:'Enter a valid Lebanese number',searchPlace:"Search products, categories… (try 'sama3at')",popular:'Popular',noResults:'No exact match',noResultsSub:'Here are our top sellers — or ask our concierge on WhatsApp.',askWa:'Ask on WhatsApp',
+    vatIncl:'USD · VAT incl.',rrp:'Official RRP',qty:'Quantity',items:'items',orderItems:'Order summary',by:'by',verified:'Verified purchase'},
+  ar:{dataNotice:'<b>نموذج أولي — كتالوج تجريبي.</b> بيانات المنتجات والأسعار توضيحية مؤقتة، بانتظار وثائق أسعار Eagle Plus / MiCare 2026 الرسمية وصور Xiaomi.',
+    ribbonShip:'🚚 توصيل مجاني للطلبات فوق <strong>$50</strong>',ribbonDrop:'ينتهي عرض الصيف خلال ',logoSub:'المتجر الرسمي · لبنان',
+    navShop:'تسوّق',navEco:'المنظومة',navOffers:'العروض',navSupport:'الدعم',megaDevices:'الأجهزة',megaHome:'المنزل ونمط الحياة',megaFeatured:'العرض المميز',
+    megaFeatName:'مكنسة روبوت 5 برو',megaFeatDesc:'شفط ومسح في جهاز واحد. الدفعة الأولى متاحة.',megaFeatCta:'شاهد العرض',
+    heroEyebrow:'رسمي · مغلق · مكفول',heroTitle:'حساب واحد. كفالة واحدة. منزل ذكي واحد.',
+    heroSub:'منظومة Xiaomi الكاملة — علب مغلقة، مسجّلة بالـIMEI، كفالة رسمية 24 شهراً، بخدمة MiCare. توصيل غداً.',
+    heroCta1:'تسوّق العرض',heroCta2:'اكتشف المنظومة',heroBadge:'كفالة رسمية 24 شهراً',
+    ts1t:'كفالة 24 شهراً',ts1s:'رسمية ومسجّلة',ts2t:'مغلق وأصلي',ts2s:'IMEI مسجّل عند الطلب',ts3t:'خدمة MiCare',ts3s:'مراكز في كل لبنان',ts4t:'توصيل اليوم التالي',ts4s:'بيروت وجبل لبنان',
+    catTitle:'تسوّق حسب المجال',catSub:'المنظومة الكاملة، مُنظّمة كما تعيش.',newTitle:'جديد 2026',newSub:'وصل حديثاً، مغلق وجاهز.',viewAll:'عرض الكل ←',
+    ecoTitle:'يومك الذكي',ecoSub:'لمسة واحدة تربطها جميعاً. من لحظة استيقاظك حتى خفوت الأضواء — المنظومة تعمل معاً.',
+    ecoDawn:'06:30 · الفجر',ecoDawnT:'استيقاظ لطيف',ecoDawnP:'السوار يتتبّع نومك ويوقظك في أخف مرحلة.',
+    ecoDay:'14:00 · المنزل',ecoDayT:'هواء نقي، أرضيات نظيفة',ecoDayP:'المنقّي والمكنسة يعملان أثناء غيابك — منزلك يعيد ترتيب نفسه.',
+    ecoNight:'21:00 · الليل',ecoNightT:'وضع السينما',ecoNightP:'التلفاز ومكبّر الصوت والإضاءة تتحوّل للمساء — مشهد واحد، كل الأجهزة.',
+    dropTitle:'العروض والدفعات',dropSub:'مخزون حقيقي، قوائم انتظار حقيقية. لا ندرة مزيّفة.',bunTitle:'أطقم جاهزة',bunSub:'تجارب كاملة — قيمة مضافة، لا خصم بالنسبة المئوية.',
+    revTitle:'من مالكين موثّقين',revSub:'تقييمات حقيقية من طلبات حقيقية.',nlTitle:'انضم للقائمة الرسمية',nlSub:'الدفعات تصل بريدك أولاً. هدية ترحيب: قسيمة توصيل مجاني على أول طلب.',nlBtn:'أعلمني',
+    cSmart:'الهواتف',cWear:'الأجهزة القابلة للارتداء',cAudio:'الصوتيات',cTV:'التلفاز والسينما',
+    ft1t:'كفالة رسمية',ft1s:'كل جهاز يحمل كفالة رسمية 24 شهراً، مسجّلة بالـIMEI عند الشراء.',ft2t:'خدمة MiCare',ft2s:'مراكز خدمة في كل لبنان. اسمك في النظام من اليوم الأول.',ft3t:'أصالة مضمونة',ft3s:'علب مغلقة فقط. لا بضاعة رمادية. القناة الرسمية مضمونة.',ft4t:'دعم واتساب',ft4s:'مساعدة الطلبات ونصائح المنتجات، برسالة واحدة.',
+    ftBrand:'المتجر الرسمي لـXiaomi في لبنان، يُدار من Eagle Plus S.A.L — الموزّع المعتمد.',ftShop:'تسوّق',ftSupport:'الدعم',ftCompany:'الشركة',ftConnect:'تواصل',
+    ftWarranty:'سياسة الكفالة',ftCenters:'مراكز الخدمة',ftDelivery:'التوصيل والإرجاع',ftFaq:'الأسئلة الشائعة',ftAbout:'من نحن',ftB2b:'حلول الأعمال',ftAuth:'ضمان الأصالة',ftRights:'موزّع Xiaomi الرسمي، لبنان',ftPrototype:'نسخة أولية — بيانات تجريبية للعرض.',
+    tabHome:'الرئيسية',tabCat:'الفئات',tabSearch:'بحث',tabBag:'السلة',tabAcct:'الحساب',cartTitle:'سلتك',back:'رجوع',secure:'دفع آمن',bcHome:'الرئيسية',
+    sortFeatured:'مميّز',sortPriceAsc:'السعر: الأقل → الأعلى',sortPriceDesc:'السعر: الأعلى → الأقل',sortRating:'الأعلى تقييماً',sortNewest:'الأحدث',
+    addToBag:'أضف للسلة',buyNow:'اشترِ الآن',inStock:'متوفّر — توصيل غداً إلى بيروت',lowStock:'كمية محدودة',preOrder:'الدفعة الأولى — انضم للانتظار',
+    warranty24:'كفالة رسمية 24 شهراً',micare:'بخدمة MiCare',codWhish:'الدفع عند الاستلام وWhish',completesSetup:'يكمّل منظومتك',fbt:'يُشترى معاً عادةً',
+    specTitle:'المواصفات الكاملة',aiCompare:'كيف يُقارن',reviewsQa:'التقييمات والأسئلة',featTitle:'لماذا ستحبّه',deliverTo:'تقدير التوصيل إلى',
+    checkout:'إتمام الشراء',freeShipMore:'أضف <b>$AMT</b> للتوصيل المجاني',freeShipDone:'🎉 حصلت على توصيل مجاني!',subtotal:'المجموع الفرعي',delivery:'التوصيل',free:'مجاني',total:'الإجمالي',emptyCart:'سلتك فارغة',startShopping:'ابدأ التسوّق',
+    coDelivery:'تفاصيل التوصيل',coPayment:'طريقة الدفع',coReview:'المراجعة وتأكيد الطلب',placeOrder:'تأكيد الطلب',
+    fName:'الاسم الكامل',fPhone:'رقم واتساب',fGov:'المحافظة',fArea:'المنطقة',fAddr:'العنوان',fNote:'ملاحظة التوصيل (اختياري)',continue:'متابعة',
+    payCod:'الدفع عند الاستلام',payCodD:'ادفع عند الوصول. نؤكّد طلبك عبر واتساب قبل الشحن.',payWhish:'Whish Money',payWhishD:'تعليمات الدفع تُرسل فوراً مع مرجع طلبك.',payCard:'بطاقة (Visa/Mastercard)',payCardD:'دفع آمن بالبطاقة عبر بوابة محلية.',
+    orderPlaced:'تم الطلب!',orderThanks:'شكراً — تم تأكيد طلبك.',orderNumber:'رقم الطلب',waContinue:'أرسل الطلب إلى واتساب',createAccount:'احفظ بياناتي — أنشئ خزانة الكفالة',keepShopping:'تابع التسوّق',
+    accountSoon:'منطقة الحساب — قادمة في النسخة النهائية',soon:'قادم في النسخة النهائية',addedToBag:'أُضيف للسلة',removed:'أُزيل',waitlistJoined:'أنت على قائمة الانتظار — سنُعلمك أولاً',subscribed:'أنت على القائمة! القسيمة في الطريق.',bundleAdded:'أُضيف الطقم للسلة',
+    reqField:'مطلوب',invalidPhone:'أدخل رقماً لبنانياً صحيحاً',searchPlace:'ابحث عن منتجات، فئات…',popular:'شائع',noResults:'لا نتيجة مطابقة',noResultsSub:'إليك الأكثر مبيعاً — أو اسأل مستشارنا على واتساب.',askWa:'اسأل على واتساب',
+    vatIncl:'دولار · شامل الضريبة',rrp:'السعر الرسمي',qty:'الكمية',items:'قطع',orderItems:'ملخص الطلب',by:'بواسطة',verified:'شراء موثّق'},
+  fr:{dataNotice:'<b>Prototype — catalogue exemple.</b> Données et prix illustratifs, en attente des documents de prix officiels Eagle Plus / MiCare 2026 et de la photothèque Xiaomi.',
+    ribbonShip:'🚚 Livraison gratuite dès <strong>$50</strong>',ribbonDrop:'Offre d\'été se termine dans ',logoSub:'Boutique Officielle · Liban',
+    navShop:'Boutique',navEco:'Écosystème',navOffers:'Offres',navSupport:'Support',megaDevices:'Appareils',megaHome:'Maison & Style',megaFeatured:'OFFRE VEDETTE',
+    megaFeatName:'Robot Vacuum 5 Pro',megaFeatDesc:'Aspire et lave. Première allocation ouverte.',megaFeatCta:'Voir l\'offre',
+    heroEyebrow:'OFFICIEL · SCELLÉ · GARANTI',heroTitle:'Un compte. Une garantie. Une maison intelligente.',
+    heroSub:'L\'écosystème Xiaomi complet — boîtes scellées, IMEI enregistré, garantie officielle 24 mois, service MiCare. Livré demain.',
+    heroCta1:'Voir l\'offre',heroCta2:'Explorer l\'écosystème',heroBadge:'Garantie officielle 24 mois',
+    ts1t:'Garantie 24 mois',ts1s:'Officielle & enregistrée',ts2t:'Scellé & authentique',ts2s:'IMEI enregistré',ts3t:'Service MiCare',ts3s:'Centres partout',ts4t:'Livraison lendemain',ts4s:'Beyrouth & Mont-Liban',
+    catTitle:'Par espace de vie',catSub:'Tout l\'écosystème, organisé comme vous vivez.',newTitle:'Nouveautés 2026',newSub:'Vient d\'arriver, scellé et prêt.',viewAll:'Tout voir →',
+    ecoTitle:'Votre journée intelligente',ecoSub:'Une touche les connecte tous. Du réveil à l\'extinction des lumières — l\'écosystème travaille ensemble.',
+    ecoDawn:'06:30 · AUBE',ecoDawnT:'Réveil en douceur',ecoDawnP:'Votre bracelet suit votre sommeil et vous réveille au bon moment.',
+    ecoDay:'14:00 · MAISON',ecoDayT:'Air pur, sols propres',ecoDayP:'Purificateur et robot fonctionnent en votre absence.',
+    ecoNight:'21:00 · NUIT',ecoNightT:'Mode cinéma',ecoNightP:'TV, barre de son et lampe passent en soirée — une scène, tous les appareils.',
+    dropTitle:'Offres & Allocations',dropSub:'Stock réel, listes d\'attente réelles. Aucune rareté factice.',bunTitle:'Setups nommés',bunSub:'Expériences complètes — valeur ajoutée, jamais de remise.',
+    revTitle:'Par des propriétaires vérifiés',revSub:'De vrais avis de vraies commandes.',nlTitle:'Rejoignez la liste officielle',nlSub:'Les allocations arrivent d\'abord dans votre boîte. Cadeau : un bon de livraison gratuite.',nlBtn:'Prévenez-moi',
+    cSmart:'Smartphones',cWear:'Objets connectés',cAudio:'Audio',cTV:'TV & Cinéma',
+    ft1t:'Garantie officielle',ft1s:'Chaque appareil porte une garantie officielle de 24 mois, enregistrée par IMEI.',ft2t:'Service MiCare',ft2s:'Centres partout. Votre nom dans le système dès le premier jour.',ft3t:'Authenticité scellée',ft3s:'Boîtes scellées uniquement. Aucun stock gris. Canal officiel garanti.',ft4t:'Support WhatsApp',ft4s:'Aide commande et conseils produit, à un message.',
+    ftBrand:'Boutique Xiaomi officielle pour le Liban, opérée par Eagle Plus S.A.L — le distributeur agréé.',ftShop:'Boutique',ftSupport:'Support',ftCompany:'Société',ftConnect:'Contact',
+    ftWarranty:'Politique de garantie',ftCenters:'Centres de service',ftDelivery:'Livraison & retours',ftFaq:'FAQ',ftAbout:'À propos',ftB2b:'Solutions entreprises',ftAuth:'Garantie d\'authenticité',ftRights:'Distributeur Xiaomi Officiel, Liban',ftPrototype:'Prototype — données exemple.',
+    tabHome:'Accueil',tabCat:'Catégories',tabSearch:'Recherche',tabBag:'Panier',tabAcct:'Compte',cartTitle:'Votre panier',back:'Retour',secure:'Paiement sécurisé',bcHome:'Accueil',
+    sortFeatured:'En vedette',sortPriceAsc:'Prix : croissant',sortPriceDesc:'Prix : décroissant',sortRating:'Mieux notés',sortNewest:'Nouveautés',
+    addToBag:'Ajouter au panier',buyNow:'Acheter',inStock:'En stock — livraison demain à Beyrouth',lowStock:'Bientôt épuisé',preOrder:'Première allocation — liste d\'attente',
+    warranty24:'Garantie officielle 24 mois',micare:'Service MiCare',codWhish:'Paiement livraison & Whish',completesSetup:'Complète votre setup',fbt:'Souvent achetés ensemble',
+    specTitle:'Spécifications complètes',aiCompare:'Comparaison',reviewsQa:'Avis & Questions',featTitle:'Pourquoi vous l\'aimerez',deliverTo:'Estimer la livraison à',
+    checkout:'Paiement',freeShipMore:'Ajoutez <b>$AMT</b> pour la livraison gratuite',freeShipDone:'🎉 Livraison gratuite débloquée !',subtotal:'Sous-total',delivery:'Livraison',free:'Gratuit',total:'Total',emptyCart:'Votre panier est vide',startShopping:'Commencer',
+    coDelivery:'Détails de livraison',coPayment:'Mode de paiement',coReview:'Vérifier & commander',placeOrder:'Commander',
+    fName:'Nom complet',fPhone:'Téléphone WhatsApp',fGov:'Gouvernorat',fArea:'Zone',fAddr:'Adresse',fNote:'Note de livraison (optionnel)',continue:'Continuer',
+    payCod:'Paiement à la livraison',payCodD:'Payez à réception. Nous confirmons sur WhatsApp avant expédition.',payWhish:'Whish Money',payWhishD:'Instructions envoyées instantanément avec votre référence.',payCard:'Carte (Visa/Mastercard)',payCardD:'Paiement sécurisé via passerelle locale.',
+    orderPlaced:'Commande passée !',orderThanks:'Merci — votre commande est confirmée.',orderNumber:'Numéro de commande',waContinue:'Envoyer sur WhatsApp',createAccount:'Enregistrer mes détails — créer mon Warranty Locker',keepShopping:'Continuer',
+    accountSoon:'Espace compte — bientôt disponible',soon:'Bientôt disponible',addedToBag:'Ajouté au panier',removed:'Retiré',waitlistJoined:'Vous êtes sur la liste — on vous préviendra en premier',subscribed:'Vous êtes inscrit ! Bon en route.',bundleAdded:'Setup ajouté au panier',
+    reqField:'Requis',invalidPhone:'Entrez un numéro libanais valide',searchPlace:'Rechercher produits, catégories…',popular:'Populaire',noResults:'Aucune correspondance',noResultsSub:'Voici nos best-sellers — ou demandez à notre conseiller WhatsApp.',askWa:'Demander sur WhatsApp',
+    vatIncl:'USD · TVA incl.',rrp:'Prix officiel',qty:'Quantité',items:'articles',orderItems:'Résumé',by:'par',verified:'Achat vérifié'}
+};
+
+let LANG='en';
+function t(k){return (I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||k}
+function P(id){return PRODUCTS.find(p=>p.id===id)}
+function catName(c){return CATS[c]?CATS[c][LANG]||CATS[c].en:c}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let cart=[]; // {id, qty}
+let wishlist=new Set();
+
+/* ============================================================
+   RENDER HELPERS
+   ============================================================ */
+function starStr(r){const full=Math.round(r);return '★'.repeat(full)+'☆'.repeat(5-full)}
+function stockLabel(s){return s==='in'?t('inStock'):s==='low'?t('lowStock'):t('preOrder')}
+function stockClass(s){return s==='in'?'in':s==='low'?'low':'pre'}
+function badgeFor(p){
+  let b='';
+  if(p.stock==='pre')b+=`<span class="badge badge-alloc">${LANG==='ar'?'دفعة أولى':'Allocation'}</span>`;
+  if(p.new)b+=`<span class="badge badge-new">${LANG==='ar'?'جديد':LANG==='fr'?'Nouveau':'New'}</span>`;
+  if(p.best&&!p.new)b+=`<span class="badge badge-best">${LANG==='ar'?'الأكثر مبيعاً':LANG==='fr'?'Best-seller':'Bestseller'}</span>`;
+  return b;
+}
+function productCard(p,showRRP){
+  const wished=wishlist.has(p.id)?'on':'';
+  return `<article class="pcard">
+    <div class="pcard-stage" onclick="openPDP('${p.id}')">
+      <div class="pcard-badges">${badgeFor(p)}</div>
+      <button class="wish ${wished}" onclick="event.stopPropagation();toggleWish('${p.id}',this)" aria-label="Wishlist">♥</button>
+      <span>${p.emoji}</span>
+    </div>
+    <div class="pcard-body">
+      <span class="pcard-cat">${catName(p.cat)}</span>
+      <div class="pcard-name" onclick="openPDP('${p.id}')">${p.name}</div>
+      <div class="pcard-spec">${p.spec}</div>
+      <div class="pcard-rating"><span class="stars">${starStr(p.rating)}</span> ${p.rating} · ${p.reviews}</div>
+      <div class="pcard-foot">
+        <div class="price">
+          ${showRRP?`<span class="rrp">${t('rrp')}</span>`:''}
+          <span class="amt">$${p.price}</span>
+          <span class="stock-line ${stockClass(p.stock)}">${p.stock==='pre'?t('preOrder'):p.stock==='low'?t('lowStock'):(LANG==='ar'?'متوفّر':LANG==='fr'?'En stock':'In stock')}</span>
+        </div>
+        <button class="add-btn" onclick="event.stopPropagation();${p.stock==='pre'?`joinWaitlist('${p.id}')`:`addToCart('${p.id}')`}" aria-label="${t('addToBag')}">
+          ${p.stock==='pre'?'🔔':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>'}
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderHome(){
+  // Bento
+  const zones=[
+    {c:'tv',cls:'wide dark'},{c:'smartphones',cls:''},{c:'wearables',cls:''},
+    {c:'appliances',cls:'tall'},{c:'audio',cls:''},{c:'mobility',cls:''},
+    {c:'smarthome',cls:''},{c:'monitors',cls:''},{c:'power',cls:'wide'},{c:'tablets',cls:''}
+  ];
+  document.getElementById('bento').innerHTML=zones.map(z=>{
+    const c=CATS[z.c];const count=PRODUCTS.filter(p=>p.cat===z.c).length;
+    return `<div class="bento-tile ${z.cls}" onclick="openPLP('${z.c}')">
+      <div class="emoji">${c.emoji}</div>
+      <div><h3>${c[LANG]||c.en}</h3><span>${count} ${LANG==='ar'?'منتج':LANG==='fr'?'produits':'products'}</span></div>
+    </div>`;
+  }).join('');
+  // New rail
+  document.getElementById('newRail').innerHTML=PRODUCTS.filter(p=>p.new).map(p=>productCard(p,false)).join('');
+  // Offers grid
+  const offers=PRODUCTS.filter(p=>p.best||p.stock==='pre').slice(0,8);
+  document.getElementById('offersGrid').innerHTML=offers.map((p,i)=>productCard(p,i%4===0)).join('');
+  // Bundles
+  document.getElementById('bundles').innerHTML=BUNDLES.map(b=>{
+    const total=b.items.reduce((s,id)=>s+P(id).price,0);
+    return `<div class="bundle">
+      <div class="bundle-top">${b.emojis.map(e=>`<span>${e}</span>`).join('')}</div>
+      <div class="bundle-body">
+        <h3>${b.name[LANG]||b.name.en}</h3>
+        <div class="bundle-items">${b.items.map(id=>P(id).name).join(' · ')}</div>
+        <span class="bundle-value">✓ ${b.value[LANG]||b.value.en}</span>
+        <div class="bundle-foot">
+          <div class="price"><span class="amt">$${total}</span></div>
+          <button class="btn btn-primary" onclick="addBundle('${b.id}')">${t('addToBag')}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  // Reviews
+  document.getElementById('reviews').innerHTML=REVIEWS.map(r=>`
+    <div class="review">
+      <div class="review-head">
+        <div class="review-av">${r.name[0]}</div>
+        <div><b>${r.name}</b><span class="review-verified">✓ ${t('verified')} · ${r.city}</span></div>
+      </div>
+      <div class="stars">${starStr(r.stars)}</div>
+      <p>${r.text[LANG]||r.text.en}</p>
+      <div class="prod">${r.prod}</div>
+    </div>`).join('');
+  // Mega menu
+  const devCats=['smartphones','tablets','wearables','audio','mobility','networking'];
+  const homeCats=['tv','monitors','smarthome','appliances','power'];
+  const megaLink=c=>{const cat=CATS[c];if(!cat)return'';const min=Math.min(...PRODUCTS.filter(p=>p.cat===c).map(p=>p.price));
+    return `<li><a onclick="openMega(false);openPLP('${c}')">${cat[LANG]||cat.en}<span class="from">${isFinite(min)?'$'+min:''}</span></a></li>`};
+  document.getElementById('megaCol1').innerHTML=['smartphones','tablets','wearables','audio','mobility'].map(megaLink).join('');
+  document.getElementById('megaCol2').innerHTML=homeCats.map(megaLink).join('');
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function go(where){
+  closeAll();
+  document.getElementById('view-plp').classList.add('hidden');
+  document.getElementById('view-home').classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab-home').classList.add('active');
+  const map={eco:'ecoSection',offers:'offersSection',support:'supportSection',home:null};
+  if(map[where]){document.getElementById(map[where]).scrollIntoView({behavior:'smooth',block:'start'});}
+  else{window.scrollTo({top:0,behavior:'smooth'});}
+}
+function openMega(open){document.getElementById('mega').classList.toggle('open',open)}
+
+let plpCat='smartphones',plpFilter='all';
+function openPLP(cat){
+  closeAll();
+  plpCat=cat;plpFilter='all';
+  document.getElementById('view-home').classList.add('hidden');
+  document.getElementById('view-plp').classList.remove('hidden');
+  const c=CATS[cat];
+  document.getElementById('plpTitle').textContent=c[LANG]||c.en;
+  document.getElementById('plpCrumb').textContent=c[LANG]||c.en;
+  // filters: price bands + availability
+  const filters=[{k:'all',l:{en:'All',ar:'الكل',fr:'Tous'}},{k:'instock',l:{en:'In stock',ar:'متوفّر',fr:'En stock'}},
+    {k:'lt100',l:{en:'Under $100',ar:'أقل من $100',fr:'< $100'}},{k:'100-400',l:{en:'$100–400',ar:'$100–400',fr:'$100–400'}},{k:'gt400',l:{en:'$400+',ar:'$400+',fr:'$400+'}}];
+  document.getElementById('plpFilters').innerHTML=filters.map(f=>`<button class="filter-chip ${f.k==='all'?'on':''}" data-f="${f.k}" onclick="setFilter('${f.k}')">${f.l[LANG]||f.l.en}</button>`).join('');
+  renderPLP();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function setFilter(k){plpFilter=k;document.querySelectorAll('#plpFilters .filter-chip').forEach(c=>c.classList.toggle('on',c.dataset.f===k));renderPLP()}
+function renderPLP(){
+  let list=PRODUCTS.filter(p=>p.cat===plpCat);
+  if(plpFilter==='instock')list=list.filter(p=>p.stock!=='pre');
+  else if(plpFilter==='lt100')list=list.filter(p=>p.price<100);
+  else if(plpFilter==='100-400')list=list.filter(p=>p.price>=100&&p.price<=400);
+  else if(plpFilter==='gt400')list=list.filter(p=>p.price>400);
+  const sort=document.getElementById('plpSort').value;
+  if(sort==='price-asc')list.sort((a,b)=>a.price-b.price);
+  else if(sort==='price-desc')list.sort((a,b)=>b.price-a.price);
+  else if(sort==='rating')list.sort((a,b)=>b.rating-a.rating);
+  else if(sort==='newest')list.sort((a,b)=>(b.new?1:0)-(a.new?1:0));
+  document.getElementById('plpCount').textContent=`${list.length} ${LANG==='ar'?'منتج':LANG==='fr'?'produits':'products'}`;
+  document.getElementById('plpGrid').innerHTML=list.length?list.map((p,i)=>productCard(p,i%4===0)).join(''):`<p style="color:var(--muted)">—</p>`;
+}
+
+/* ============================================================
+   PDP
+   ============================================================ */
+let pdpProduct=null;
+function openPDP(id){
+  const p=P(id);if(!p)return;pdpProduct=p;
+  openMega(false);
+  const attaches=(p.attach||[]).map(a=>P(a)).filter(Boolean).filter(x=>x.id!==p.id);
+  const sibling=PRODUCTS.find(x=>x.cat===p.cat&&x.id!==p.id&&x.price>p.price)||PRODUCTS.find(x=>x.cat===p.cat&&x.id!==p.id);
+  const specRows=Object.entries(p.specs).map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+  const govOpts=GOVERNORATES.map(g=>`<option>${g}</option>`).join('');
+  const aiText=sibling?aiCompareText(p,sibling):'';
+  document.getElementById('pdpContent').innerHTML=`
+    <div class="pdp-top">
+      <div class="pdp-gallery">
+        <div class="pdp-main-img"><span id="pdpMainEmoji">${p.emoji}</span>
+          ${p.price>300?`<div class="pdp-360">🔄 360°</div>`:''}
+        </div>
+        <div class="pdp-thumbs">
+          ${[0,1,2,3].map(i=>`<div class="pdp-thumb ${i===0?'on':''}" onclick="document.querySelectorAll('.pdp-thumb').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${p.emoji}</div>`).join('')}
+        </div>
+      </div>
+      <div class="pdp-buy">
+        <span class="bcat">${catName(p.cat)}</span>
+        <h1>${p.name}</h1>
+        <div class="rating-anchor"><span class="stars">${starStr(p.rating)}</span> ${p.rating} · ${p.reviews} ${LANG==='ar'?'تقييم':LANG==='fr'?'avis':'reviews'}</div>
+        <div class="pdp-price">$${p.price}<small>${t('rrp')} · ${t('vatIncl')}</small></div>
+        <div class="pdp-stock"><span class="stock-line ${stockClass(p.stock)}">${stockLabel(p.stock)}</span></div>
+        <div class="gov-select">
+          <label>${t('deliverTo')}</label>
+          <select onchange="updateDeliveryEst(this.value)"><option value="">—</option>${govOpts}</select>
+          <p id="delEst" style="font-size:12.5px;color:var(--muted);margin-top:6px"></p>
+        </div>
+        <div class="pdp-actions">
+          ${p.stock==='pre'
+            ?`<button class="btn btn-primary btn-lg btn-block" onclick="joinWaitlist('${p.id}')">🔔 ${t('preOrder')}</button>`
+            :`<button class="btn btn-ghost btn-lg" style="flex:1" onclick="addToCart('${p.id}')">${t('addToBag')}</button>
+              <button class="btn btn-primary btn-lg" style="flex:1" onclick="addToCart('${p.id}');openCheckout()">${t('buyNow')}</button>`}
+        </div>
+        <!-- Trust row -->
+        <div class="trustrow">
+          <div><span class="em">🛡️</span>${t('warranty24')}</div>
+          <div><span class="em">🔧</span>${t('micare')}</div>
+          <div><span class="em">💵</span>${t('codWhish')}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pdp-section">
+      <h2>${t('featTitle')}</h2>
+      <div class="feat-grid">
+        ${Object.entries(p.specs).slice(0,4).map(([k,v])=>`<div class="feat"><div class="em">${p.emoji}</div><b>${k}</b><p>${v}</p></div>`).join('')}
+      </div>
+    </div>
+
+    ${aiText?`<div class="pdp-section">
+      <div class="ai-compare">
+        <span class="ai-tag">✨ ${t('aiCompare')} · ${sibling.name}</span>
+        <p>${aiText}</p>
+      </div>
+    </div>`:''}
+
+    <div class="pdp-section">
+      <h2>${t('specTitle')}</h2>
+      <table class="spec-table">${specRows}</table>
+    </div>
+
+    ${attaches.length?`<div class="pdp-section">
+      <h2>${t('fbt')}</h2>
+      <div class="rail">${attaches.map(a=>productCard(a,false)).join('')}</div>
+    </div>
+    <div class="pdp-section">
+      <h2>${t('completesSetup')}</h2>
+      <div class="rail">${attaches.slice().reverse().map(a=>productCard(a,false)).join('')}</div>
+    </div>`:''}
+
+    <div class="pdp-section">
+      <h2>${t('reviewsQa')}</h2>
+      <div class="qa-item"><div class="q">Q: ${LANG==='ar'?'هل الكفالة رسمية؟':LANG==='fr'?'La garantie est-elle officielle ?':'Is the warranty official?'}</div>
+        <div class="a">A: ${LANG==='ar'?'نعم — كفالة رسمية 24 شهراً مسجّلة بالـIMEI عند الشراء، بخدمة MiCare.':LANG==='fr'?'Oui — garantie officielle 24 mois enregistrée par IMEI, service MiCare.':'Yes — 24-month official warranty registered by IMEI at purchase, serviced by MiCare.'}</div></div>
+      <div class="qa-item"><div class="q">Q: ${LANG==='ar'?'كيف أدفع؟':LANG==='fr'?'Comment payer ?':'How can I pay?'}</div>
+        <div class="a">A: ${LANG==='ar'?'الدفع عند الاستلام، Whish Money، أو بطاقة. نؤكّد عبر واتساب قبل الشحن.':LANG==='fr'?'Paiement à la livraison, Whish Money ou carte. Confirmation WhatsApp avant expédition.':'Cash on Delivery, Whish Money, or card. We confirm on WhatsApp before dispatch.'}</div></div>
+      ${REVIEWS.slice(0,2).map(r=>`<div class="review" style="border:none;padding:16px 0;border-bottom:1px solid var(--line)">
+        <div class="review-head"><div class="review-av">${r.name[0]}</div><div><b>${r.name}</b><span class="review-verified">✓ ${t('verified')}</span></div><span class="stars" style="margin-inline-start:auto">${starStr(r.stars)}</span></div>
+        <p style="margin-top:8px">${r.text[LANG]||r.text.en}</p></div>`).join('')}
+    </div>
+  `;
+  // sticky bar
+  document.getElementById('pdpSticky').innerHTML=`
+    <div class="p" style="flex:1">$${p.price}</div>
+    ${p.stock==='pre'
+      ?`<button class="btn btn-primary" style="flex:1" onclick="joinWaitlist('${p.id}')">🔔 ${LANG==='ar'?'انتظار':'Waitlist'}</button>`
+      :`<button class="btn btn-primary" style="flex:1.4" onclick="addToCart('${p.id}')">${t('addToBag')}</button>`}`;
+  document.getElementById('pdp').classList.add('open');
+  document.body.setAttribute('data-scroll-lock','');
+  document.getElementById('pdp').scrollTop=0;
+}
+function aiCompareText(p,s){
+  const dp=p.price-s.price;
+  const cheaper=dp<0;
+  if(LANG==='ar')return `مقارنةً بـ${s.name}، يأتي ${p.name} بسعر ${cheaper?'أقل':'أعلى'} بمقدار $${Math.abs(dp)}. كلاهما ضمن فئة ${catName(p.cat)} مع كفالة رسمية 24 شهراً. اختر ${p.name} إن كنت تريد ${p.spec.split('·')[0].trim()}. (ملخّص مبني على قاعدة المواصفات فقط.)`;
+  if(LANG==='fr')return `Comparé au ${s.name}, le ${p.name} est ${cheaper?'moins':'plus'} cher de $${Math.abs(dp)}. Tous deux dans la catégorie ${catName(p.cat)} avec garantie officielle 24 mois. Choisissez le ${p.name} pour ${p.spec.split('·')[0].trim()}. (Résumé issu de la base de spécifications.)`;
+  return `Compared to the ${s.name}, the ${p.name} is $${Math.abs(dp)} ${cheaper?'less':'more'}. Both sit in the ${catName(p.cat)} range with the same 24-month official warranty. Choose the ${p.name} if ${p.spec.split('·')[0].trim().toLowerCase()} matters most to you. (Summary generated strictly from the spec database.)`;
+}
+function updateDeliveryEst(g){
+  if(!g){document.getElementById('delEst').textContent='';return}
+  const next=['Beirut','Mount Lebanon'].includes(g);
+  const el=document.getElementById('delEst');
+  el.textContent=next?(LANG==='ar'?`📦 توصيل غداً إلى ${g}`:LANG==='fr'?`📦 Livraison demain à ${g}`:`📦 Next-day delivery to ${g}`)
+    :(LANG==='ar'?`📦 توصيل خلال 48 ساعة إلى ${g}`:LANG==='fr'?`📦 Livraison sous 48h à ${g}`:`📦 Delivery within 48h to ${g}`);
+}
+function closePDP(){document.getElementById('pdp').classList.remove('open');document.body.removeAttribute('data-scroll-lock')}
+
+/* ============================================================
+   CART
+   ============================================================ */
+function addToCart(id,silent){
+  const ex=cart.find(c=>c.id===id);
+  if(ex)ex.qty++;else cart.push({id,qty:1});
+  updateCartBadge();
+  if(!silent)showToast('✓ '+t('addedToBag'));
+  renderCart();
+}
+function addBundle(bid){
+  const b=BUNDLES.find(x=>x.id===bid);
+  b.items.forEach(id=>{if(P(id).stock!=='pre')addToCart(id,true);});
+  updateCartBadge();showToast('✓ '+t('bundleAdded'));renderCart();openCart();
+}
+function joinWaitlist(id){showToast('🔔 '+t('waitlistJoined'))}
+function toggleWish(id,el){if(wishlist.has(id)){wishlist.delete(id);el.classList.remove('on')}else{wishlist.add(id);el.classList.add('on')}}
+function changeQty(id,d){
+  const it=cart.find(c=>c.id===id);if(!it)return;
+  it.qty+=d;if(it.qty<=0)cart=cart.filter(c=>c.id!==id);
+  updateCartBadge();renderCart();
+}
+function removeItem(id){cart=cart.filter(c=>c.id!==id);updateCartBadge();renderCart();showToast(t('removed'))}
+function cartSubtotal(){return cart.reduce((s,c)=>s+P(c.id).price*c.qty,0)}
+function cartUnits(){return cart.reduce((s,c)=>s+c.qty,0)}
+function updateCartBadge(){
+  const n=cartUnits();
+  ['cartCount','cartCountMobile'].forEach(id=>{const el=document.getElementById(id);el.textContent=n;el.classList.toggle('show',n>0)});
+}
+const FREE_SHIP=50;
+function renderCart(){
+  const body=document.getElementById('cartBody'),foot=document.getElementById('cartFoot');
+  if(!cart.length){
+    body.innerHTML=`<div class="cart-empty"><div class="em">🛍️</div><p>${t('emptyCart')}</p><button class="btn btn-primary" style="margin-top:16px" onclick="closeCart()">${t('startShopping')}</button></div>`;
+    foot.innerHTML='';return;
+  }
+  const sub=cartSubtotal();
+  const remain=Math.max(0,FREE_SHIP-sub);
+  const pct=Math.min(100,sub/FREE_SHIP*100);
+  // attach suggestion: find an attach for first cart item not already in cart
+  let attachHtml='';
+  for(const c of cart){
+    const cand=(P(c.id).attach||[]).map(P).find(x=>x&&x.stock!=='pre'&&!cart.find(ci=>ci.id===x.id));
+    if(cand){attachHtml=`<div class="attach-row"><span class="em">${cand.emoji}</span>
+      <div class="txt"><b>${cand.name}</b><br>${LANG==='ar'?'أضِفه ليُشحن مجاناً معاً':LANG==='fr'?'ajoutez-le, livré ensemble':'add it — ships free together'} · $${cand.price}</div>
+      <button onclick="addToCart('${cand.id}')">+ ${t('addToBag')}</button></div>`;break;}
+  }
+  body.innerHTML=`
+    <div class="freeship">
+      <p>${remain>0?t('freeShipMore').replace('$AMT','$'+remain):t('freeShipDone')}</p>
+      <div class="freeship-bar"><div class="freeship-fill" style="width:${pct}%"></div></div>
+    </div>
+    ${cart.map(c=>{const p=P(c.id);return `<div class="cline">
+      <div class="cline-img">${p.emoji}</div>
+      <div class="cline-info">
+        <b>${p.name}</b>
+        <div class="p">$${p.price*c.qty}</div>
+        <div class="cline-ctrl">
+          <div class="qty"><button onclick="changeQty('${c.id}',-1)">−</button><span>${c.qty}</span><button onclick="changeQty('${c.id}',1)">+</button></div>
+          <button class="remove" onclick="removeItem('${c.id}')">${LANG==='ar'?'إزالة':LANG==='fr'?'Retirer':'Remove'}</button>
+        </div>
+      </div>
+    </div>`}).join('')}
+    ${attachHtml}
+  `;
+  foot.innerHTML=`
+    <div class="summary-row"><span>${t('subtotal')}</span><span>$${sub}</span></div>
+    <div class="summary-row"><span>${t('delivery')}</span><span>${remain>0?(LANG==='ar'?'يُحتسب':LANG==='fr'?'Calculé':'Calculated'):t('free')}</span></div>
+    <div class="summary-row total"><span>${t('total')}</span><span>$${sub}</span></div>
+    <button class="btn btn-primary btn-block btn-lg" style="margin-top:14px" onclick="openCheckout()">${t('checkout')} · $${sub}</button>
+    <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px">🛡️ ${t('warranty24')} · 💵 ${t('codWhish')}</p>
+  `;
+}
+function openCart(){renderCart();document.getElementById('scrim').classList.add('open');document.getElementById('cartDrawer').classList.add('open');document.body.setAttribute('data-scroll-lock','')}
+function closeCart(){document.getElementById('scrim').classList.remove('open');document.getElementById('cartDrawer').classList.remove('open');document.body.removeAttribute('data-scroll-lock')}
+
+/* ============================================================
+   CHECKOUT
+   ============================================================ */
+let coStep=1,payMethod='cod';
+function openCheckout(){
+  if(!cart.length){showToast(t('emptyCart'));return}
+  closeCart();closePDP();
+  coStep=1;payMethod='cod';
+  renderCheckout();
+  document.getElementById('checkout').classList.add('open');
+  document.body.setAttribute('data-scroll-lock','');
+}
+function closeCheckout(){document.getElementById('checkout').classList.remove('open');document.body.removeAttribute('data-scroll-lock')}
+function renderCheckout(){
+  const sub=cartSubtotal();
+  const govOpts=GOVERNORATES.map(g=>`<option>${g}</option>`).join('');
+  document.getElementById('checkoutBody').innerHTML=`
+  <div class="co-grid">
+    <div>
+      <!-- Step 1 Delivery -->
+      <div class="co-step ${coStep===1?'active':coStep>1?'done':''}" id="step1">
+        <div class="co-step-head" onclick="gotoStep(1)">
+          <span class="co-step-num">${coStep>1?'✓':'1'}</span>
+          <h3>${t('coDelivery')}</h3>
+          ${coStep>1?`<span class="edit">${LANG==='ar'?'تعديل':LANG==='fr'?'Modifier':'Edit'}</span>`:''}
+        </div>
+        <div class="co-step-body">
+          <div class="field" id="f-name"><label>${t('fName')}</label><input id="in-name" placeholder="${t('fName')}"><span class="err">⚠ ${t('reqField')}</span></div>
+          <div class="field" id="f-phone"><label>${t('fPhone')}</label><input id="in-phone" inputmode="tel" placeholder="70 123 456 / +961…"><span class="err">⚠ ${t('invalidPhone')}</span></div>
+          <div class="field-row">
+            <div class="field" id="f-gov"><label>${t('fGov')}</label><select id="in-gov"><option value="">—</option>${govOpts}</select><span class="err">⚠ ${t('reqField')}</span></div>
+            <div class="field" id="f-area"><label>${t('fArea')}</label><input id="in-area" placeholder="${t('fArea')}"><span class="err">⚠ ${t('reqField')}</span></div>
+          </div>
+          <div class="field" id="f-addr"><label>${t('fAddr')}</label><input id="in-addr" placeholder="${t('fAddr')}"><span class="err">⚠ ${t('reqField')}</span></div>
+          <div class="field"><label>${t('fNote')}</label><textarea id="in-note" rows="2"></textarea></div>
+          <button class="btn btn-primary btn-block btn-lg" onclick="validateStep1()">${t('continue')}</button>
+        </div>
+      </div>
+      <!-- Step 2 Payment -->
+      <div class="co-step ${coStep===2?'active':coStep>2?'done':''}" id="step2">
+        <div class="co-step-head" onclick="if(coStep>2)gotoStep(2)">
+          <span class="co-step-num">${coStep>2?'✓':'2'}</span>
+          <h3>${t('coPayment')}</h3>
+          ${coStep>2?`<span class="edit">${LANG==='ar'?'تعديل':LANG==='fr'?'Modifier':'Edit'}</span>`:''}
+        </div>
+        <div class="co-step-body">
+          <div class="pay-opt ${payMethod==='cod'?'sel':''}" onclick="setPay('cod')">
+            <div class="pay-radio"></div>
+            <div><b>💵 ${t('payCod')} <span class="tag">${LANG==='ar'?'الأكثر شيوعاً':LANG==='fr'?'Populaire':'Popular'}</span></b><p>${t('payCodD')}</p></div>
+          </div>
+          <div class="pay-opt ${payMethod==='whish'?'sel':''}" onclick="setPay('whish')">
+            <div class="pay-radio"></div>
+            <div><b>📲 ${t('payWhish')}</b><p>${t('payWhishD')}</p></div>
+          </div>
+          <div class="pay-opt ${payMethod==='card'?'sel':''}" onclick="setPay('card')">
+            <div class="pay-radio"></div>
+            <div><b>💳 ${t('payCard')}</b><p>${t('payCardD')}</p></div>
+          </div>
+          <button class="btn btn-primary btn-block btn-lg" style="margin-top:8px" onclick="gotoStep(3)">${t('continue')}</button>
+        </div>
+      </div>
+      <!-- Step 3 Review -->
+      <div class="co-step ${coStep===3?'active':''}" id="step3">
+        <div class="co-step-head">
+          <span class="co-step-num">3</span><h3>${t('coReview')}</h3>
+        </div>
+        <div class="co-step-body">
+          <div id="reviewSummary" style="font-size:14px;color:var(--body);margin-bottom:16px"></div>
+          <button class="btn btn-primary btn-block btn-lg" onclick="placeOrder()">${t('placeOrder')} · $${sub}</button>
+          <p class="co-reassure">🛡️ ${t('warranty24')} · 🔧 ${t('micare')}<br>${payMethodReassure()}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Summary -->
+    <div class="co-summary">
+      <h3>${t('orderItems')}</h3>
+      ${cart.map(c=>{const p=P(c.id);return `<div class="co-sum-line"><div class="em">${p.emoji}</div><div class="n">${p.name}<div class="q">${LANG==='ar'?'الكمية':LANG==='fr'?'Qté':'Qty'} ${c.qty}</div></div><div class="pr">$${p.price*c.qty}</div></div>`}).join('')}
+      <div class="summary-row" style="margin-top:12px"><span>${t('subtotal')}</span><span>$${sub}</span></div>
+      <div class="summary-row"><span>${t('delivery')}</span><span>${sub>=FREE_SHIP?t('free'):(LANG==='ar'?'يُحتسب':'Calculated')}</span></div>
+      <div class="summary-row total"><span>${t('total')}</span><span>$${sub}</span></div>
+      <p class="co-reassure">🔒 ${LANG==='ar'?'نؤكّد طلبك عبر واتساب قبل الشحن':LANG==='fr'?'Confirmation WhatsApp avant expédition':'We confirm your order on WhatsApp before dispatch'}</p>
+    </div>
+  </div>`;
+}
+function payMethodReassure(){
+  if(payMethod==='cod')return t('payCodD');
+  if(payMethod==='whish')return t('payWhishD');
+  return t('payCardD');
+}
+function setPay(m){payMethod=m;renderCheckout();document.getElementById('step2').scrollIntoView({behavior:'smooth',block:'center'})}
+function gotoStep(n){coStep=n;renderCheckout();if(n===3)buildReview();document.getElementById('step'+n).scrollIntoView({behavior:'smooth',block:'start'})}
+function validateStep1(){
+  const fields=[['name',v=>v.trim().length>1],['phone',validPhone],['gov',v=>!!v],['area',v=>v.trim().length>0],['addr',v=>v.trim().length>2]];
+  let ok=true;
+  fields.forEach(([f,fn])=>{
+    const wrap=document.getElementById('f-'+f);const val=document.getElementById('in-'+f).value;
+    if(!fn(val)){wrap.classList.add('invalid');ok=false}else wrap.classList.remove('invalid');
+  });
+  if(ok){window._co={name:document.getElementById('in-name').value,phone:document.getElementById('in-phone').value,
+    gov:document.getElementById('in-gov').value,area:document.getElementById('in-area').value,addr:document.getElementById('in-addr').value,
+    note:document.getElementById('in-note').value};gotoStep(2)}
+}
+function validPhone(v){const c=v.replace(/[\s-]/g,'');return /^(\+?961)?(0)?(3|7\d|8\d|1\d|9\d)\d{6}$/.test(c)||/^\d{7,8}$/.test(c)}
+function buildReview(){
+  const co=window._co||{};
+  const payNames={cod:t('payCod'),whish:t('payWhish'),card:t('payCard')};
+  document.getElementById('reviewSummary').innerHTML=`
+    <div style="background:var(--cloud);border-radius:12px;padding:14px;line-height:1.7">
+      <b>${co.name||''}</b> · ${co.phone||''}<br>
+      ${co.addr||''}, ${co.area||''}, ${co.gov||''}<br>
+      ${co.note?`<span style="color:var(--muted)">📝 ${co.note}</span><br>`:''}
+      <span style="color:var(--mi-primary);font-weight:600">💳 ${payNames[payMethod]}</span>
+    </div>`;
+}
+function placeOrder(){
+  const co=window._co||{};
+  const orderNo='XLB-'+String(Math.floor(performance.now())%100000).padStart(5,'0');
+  const sub=cartSubtotal();
+  const lines=cart.map(c=>`${c.qty}× ${P(c.id).name} — $${P(c.id).price*c.qty}`).join('%0A');
+  const payNames={cod:t('payCod'),whish:t('payWhish'),card:t('payCard')};
+  const waMsg=`*Xiaomi Lebanon — ${t('orderNumber')} ${orderNo}*%0A%0A${lines}%0A%0A${t('total')}: $${sub}%0A${payNames[payMethod]}%0A%0A${co.name||''} · ${co.phone||''}%0A${co.addr||''}, ${co.gov||''}`;
+  const waUrl=`https://wa.me/9611000000?text=${waMsg}`;
+  document.getElementById('checkoutBody').innerHTML=`
+    <div class="confirm">
+      <div class="check">✓</div>
+      <h1>${t('orderPlaced')}</h1>
+      <p class="order-no">${t('orderThanks')}<br>${t('orderNumber')}: <b>${orderNo}</b></p>
+      <div class="confirm-card">
+        <b style="color:var(--ink);font-family:Space Grotesk;font-size:16px">🛡️ Warranty Locker</b>
+        <p style="font-size:13.5px;color:var(--body);margin-top:6px">${LANG==='ar'?'سيُسجَّل كل جهاز تلقائياً (IMEI/الرقم التسلسلي) في خزانة كفالة رقمية مع سجل خدمة MiCare.':LANG==='fr'?'Chaque appareil sera enregistré automatiquement (IMEI/série) dans un Warranty Locker numérique avec historique MiCare.':'Each device will auto-register (serial/IMEI) into a digital warranty card with MiCare service history.'}</p>
+      </div>
+      <a class="btn wa-continue btn-block btn-lg" href="${waUrl}" target="_blank" rel="noopener" style="margin-bottom:12px">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
+        ${t('waContinue')}
+      </a>
+      <button class="btn btn-ghost btn-block" onclick="showToast(t('accountSoon'))" style="margin-bottom:12px">${t('createAccount')}</button>
+      <button class="btn btn-quiet" onclick="cart=[];updateCartBadge();closeCheckout();go('home')">${t('keepShopping')}</button>
+    </div>`;
+  window.scrollTo({top:0});
+}
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+function openSearch(){
+  document.getElementById('searchOverlay').classList.add('open');
+  const chips=['robot vacuum','سماعات','airfryer','scooter','Band 9'];
+  document.getElementById('searchChips').innerHTML=`<span style="font-size:12px;color:var(--muted);align-self:center">${t('popular')}:</span>`+
+    chips.map(c=>`<button class="chip" onclick="document.getElementById('searchInput').value='${c}';doSearch('${c}')">${c}</button>`).join('');
+  document.getElementById('searchInput').value='';
+  document.getElementById('searchResults').innerHTML='';
+  setTimeout(()=>document.getElementById('searchInput').focus(),100);
+  document.body.setAttribute('data-scroll-lock','');
+}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.removeAttribute('data-scroll-lock')}
+function doSearch(q){
+  const res=document.getElementById('searchResults');
+  q=q.trim().toLowerCase();
+  if(!q){res.innerHTML='';return}
+  // synonym mapping (Arabic + Arabizi)
+  let mapped=q;
+  for(const[k,v]of Object.entries(SEARCH_SYNONYMS)){if(q.includes(k)){mapped=v;break}}
+  let matches=PRODUCTS.filter(p=>
+    p.name.toLowerCase().includes(q)||p.spec.toLowerCase().includes(q)||p.cat.includes(mapped)||p.id===mapped||
+    p.name.toLowerCase().includes(mapped)||(CATS[p.cat]&&(CATS[p.cat].en.toLowerCase().includes(q)||(CATS[p.cat].ar||'').includes(q)))
+  );
+  // typo tolerance fallback (very light)
+  if(!matches.length){matches=PRODUCTS.filter(p=>p.cat===mapped||p.id===mapped)}
+  if(matches.length){
+    res.innerHTML=matches.slice(0,7).map(p=>`<div class="sresult" onclick="closeSearch();openPDP('${p.id}')">
+      <div class="em">${p.emoji}</div>
+      <div class="n"><b>${p.name}</b><span>${catName(p.cat)} · <span class="stock-line ${stockClass(p.stock)}" style="display:inline-flex">${p.stock==='pre'?t('preOrder'):p.stock==='low'?t('lowStock'):(LANG==='ar'?'متوفّر':'In stock')}</span></span></div>
+      <div class="p">$${p.price}</div></div>`).join('');
+  }else{
+    // zero-results rescue
+    const top=PRODUCTS.filter(p=>p.best).slice(0,3);
+    res.innerHTML=`<div class="no-results"><div class="em">🔍</div><b style="color:var(--ink)">${t('noResults')}</b><p style="margin:8px 0 16px">${t('noResultsSub')}</p>
+      <a class="btn wa-continue" href="https://wa.me/9611000000?text=${encodeURIComponent('I was looking for: '+q)}" target="_blank" rel="noopener" style="display:inline-flex">💬 ${t('askWa')}</a></div>
+      <div style="padding:8px">${top.map(p=>`<div class="sresult" onclick="closeSearch();openPDP('${p.id}')"><div class="em">${p.emoji}</div><div class="n"><b>${p.name}</b><span>${catName(p.cat)}</span></div><div class="p">$${p.price}</div></div>`).join('')}</div>`;
+  }
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+function closeAll(){closeCart();closePDP();closeSearch();openMega(false)}
+function subscribe(){const e=document.getElementById('nlEmail').value;if(e&&e.includes('@')){showToast('✓ '+t('subscribed'));document.getElementById('nlEmail').value=''}else showToast('⚠ '+t('reqField'))}
+let toastTimer;
+function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
+
+/* Language */
+function cycleLang(){const order=['en','ar','fr'];LANG=order[(order.indexOf(LANG)+1)%3];applyLang()}
+function applyLang(){
+  document.getElementById('langBtn').textContent=LANG.toUpperCase();
+  document.documentElement.lang=LANG;
+  document.documentElement.dir=LANG==='ar'?'rtl':'ltr';
+  document.body.classList.toggle('rtl',LANG==='ar');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');if(I18N[LANG]&&I18N[LANG][k]!==undefined)el.innerHTML=I18N[LANG][k];
+  });
+  document.getElementById('searchInput').placeholder=t('searchPlace');
+  renderHome();
+  // re-render any open views
+  if(!document.getElementById('view-plp').classList.contains('hidden'))openPLP(plpCat);
+  if(pdpProduct&&document.getElementById('pdp').classList.contains('open'))openPDP(pdpProduct.id);
+  if(document.getElementById('checkout').classList.contains('open'))renderCheckout();
+  renderCart();
+}
+
+/* Countdown (honest — real target time) */
+function startCountdown(){
+  // target: end of current day + a few days, computed once at load
+  const el=document.getElementById('countdown');
+  const now=new Date();
+  const target=new Date(now.getFullYear(),now.getMonth(),now.getDate()+3,23,59,59);
+  function tick(){
+    const diff=target-new Date();
+    if(diff<=0){el.textContent='—';return}
+    const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+    el.textContent=`${d}d ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    requestAnimationFrame(()=>setTimeout(tick,1000));
+  }
+  tick();
+}
+
+/* Esc closes overlays */
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+
+/* Init */
+renderHome();
+updateCartBadge();
+startCountdown();
+</script>
+</body>
+</html>
