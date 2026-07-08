@@ -1,0 +1,514 @@
+/* Dr. Costi House of Beauty — brand-kit compiled stylesheet.
+   Tokens, fonts, and component styles. Derived from the brand site's own CSS. */
+
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600&display=swap");
+
+/* ─────────────────────────────  Design tokens  ───────────────────────────── */
+:root {
+  /* Brand palette */
+  --dcb-gold: #d1b17c;
+  --dcb-gold-dark: #847132;
+  --dcb-gold-light: #e2cba0;
+  --dcb-navy: #1e2a37;
+  --dcb-navy-deep: #141e28;
+  --dcb-cream: #d8ccb8;
+  --dcb-white: #ffffff;
+
+  /* Semantic surfaces / text */
+  --dcb-bg: var(--dcb-navy-deep);
+  --dcb-surface: #1a2632;
+  --dcb-surface-raised: #22303d;
+  --dcb-border: rgba(209, 177, 124, 0.22);
+  --dcb-border-strong: rgba(209, 177, 124, 0.45);
+  --dcb-text: #ffffff;
+  --dcb-text-muted: rgba(216, 204, 184, 0.55);
+  --dcb-text-subtle: rgba(216, 204, 184, 0.35);
+
+  /* Gold gradient (used on hover fills / solids) */
+  --dcb-gold-gradient: linear-gradient(135deg, var(--dcb-gold), var(--dcb-gold-dark));
+
+  /* Typography */
+  --dcb-font: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --dcb-weight-thin: 200;
+  --dcb-weight-light: 300;
+  --dcb-weight-regular: 400;
+  --dcb-weight-medium: 500;
+
+  /* Letter-spacing scale (the brand's signature wide tracking) */
+  --dcb-track-sm: 2px;
+  --dcb-track-md: 5px;
+  --dcb-track-lg: 8px;
+  --dcb-track-xl: 12px;
+
+  /* Spacing scale */
+  --dcb-space-1: 4px;
+  --dcb-space-2: 8px;
+  --dcb-space-3: 12px;
+  --dcb-space-4: 16px;
+  --dcb-space-5: 24px;
+  --dcb-space-6: 32px;
+  --dcb-space-7: 48px;
+  --dcb-space-8: 64px;
+
+  /* Radii */
+  --dcb-radius-sm: 2px;
+  --dcb-radius-md: 4px;
+  --dcb-radius-lg: 12px;
+  --dcb-radius-pill: 999px;
+
+  /* Motion */
+  --dcb-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dcb-transition: 0.5s var(--dcb-ease);
+}
+
+/* Base element the design agent can wrap designs in for the brand canvas. */
+.dcb-root {
+  font-family: var(--dcb-font);
+  background: var(--dcb-bg);
+  color: var(--dcb-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─────────────────────────────  Button  ───────────────────────────── */
+.dcb-btn {
+  --_pad-y: 16px;
+  --_pad-x: 44px;
+  --_size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dcb-space-2);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--dcb-font);
+  font-weight: var(--dcb-weight-light);
+  font-size: var(--_size);
+  letter-spacing: var(--dcb-track-md);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: var(--_pad-y) var(--_pad-x);
+  border: 1px solid transparent;
+  border-radius: var(--dcb-radius-sm);
+  cursor: pointer;
+  transition: color var(--dcb-transition), background var(--dcb-transition),
+    border-color var(--dcb-transition);
+  white-space: nowrap;
+}
+.dcb-btn:focus-visible {
+  outline: 2px solid var(--dcb-gold);
+  outline-offset: 3px;
+}
+.dcb-btn[disabled],
+.dcb-btn--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.dcb-btn__label {
+  position: relative;
+  z-index: 1;
+}
+/* size */
+.dcb-btn--sm {
+  --_pad-y: 11px;
+  --_pad-x: 28px;
+  --_size: 0.68rem;
+  letter-spacing: var(--dcb-track-sm);
+}
+.dcb-btn--lg {
+  --_pad-y: 20px;
+  --_pad-x: 60px;
+  --_size: 0.82rem;
+}
+/* ghost — outline gold that fills with gold gradient on hover (the site's CTA) */
+.dcb-btn--ghost {
+  color: var(--dcb-gold);
+  border-color: var(--dcb-border-strong);
+  background: transparent;
+}
+.dcb-btn--ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--dcb-gold-gradient);
+  opacity: 0;
+  transition: opacity var(--dcb-transition);
+  z-index: 0;
+}
+.dcb-btn--ghost:hover {
+  color: var(--dcb-navy-deep);
+  border-color: var(--dcb-gold);
+}
+.dcb-btn--ghost:hover::before {
+  opacity: 1;
+}
+/* solid — filled gold gradient, navy ink */
+.dcb-btn--solid {
+  color: var(--dcb-navy-deep);
+  background: var(--dcb-gold-gradient);
+  border-color: transparent;
+}
+.dcb-btn--solid:hover {
+  color: var(--dcb-navy-deep);
+  filter: brightness(1.08);
+}
+/* text — bare tracked gold */
+.dcb-btn--text {
+  color: var(--dcb-gold);
+  background: transparent;
+  border-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+}
+.dcb-btn--text:hover {
+  color: var(--dcb-gold-light);
+}
+
+/* ─────────────────────────────  IconButton  ───────────────────────────── */
+.dcb-icon-btn {
+  --_dim: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--_dim);
+  height: var(--_dim);
+  padding: 0;
+  border-radius: var(--dcb-radius-pill);
+  background: rgba(209, 177, 124, 0.12);
+  border: 1px solid rgba(209, 177, 124, 0.2);
+  color: var(--dcb-gold);
+  cursor: pointer;
+  transition: background var(--dcb-transition), border-color var(--dcb-transition),
+    color var(--dcb-transition);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.dcb-icon-btn:focus-visible {
+  outline: 2px solid var(--dcb-gold);
+  outline-offset: 3px;
+}
+.dcb-icon-btn:hover {
+  background: var(--dcb-gold);
+  border-color: var(--dcb-gold);
+  color: var(--dcb-navy-deep);
+}
+.dcb-icon-btn--sm {
+  --_dim: 40px;
+}
+.dcb-icon-btn--lg {
+  --_dim: 64px;
+}
+.dcb-icon-btn svg {
+  width: 42%;
+  height: 42%;
+  fill: currentColor;
+}
+.dcb-icon-btn[disabled] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────  Heading  ───────────────────────────── */
+.dcb-heading {
+  font-family: var(--dcb-font);
+  font-weight: var(--dcb-weight-thin);
+  text-transform: uppercase;
+  color: var(--dcb-white);
+  margin: 0;
+  line-height: 1.15;
+}
+.dcb-heading--1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: var(--dcb-track-xl);
+}
+.dcb-heading--2 {
+  font-size: clamp(1.3rem, 2.6vw, 2rem);
+  letter-spacing: var(--dcb-track-lg);
+}
+.dcb-heading--3 {
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  letter-spacing: var(--dcb-track-md);
+  font-weight: var(--dcb-weight-light);
+}
+.dcb-heading--gold {
+  color: var(--dcb-gold);
+}
+.dcb-heading--center {
+  text-align: center;
+}
+.dcb-heading--accent {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 22px;
+}
+.dcb-heading--accent::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 44px;
+  height: 1px;
+  background: var(--dcb-gold);
+}
+.dcb-heading--accent.dcb-heading--center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ─────────────────────────────  Eyebrow  ───────────────────────────── */
+.dcb-eyebrow {
+  display: inline-block;
+  font-family: var(--dcb-font);
+  font-weight: var(--dcb-weight-thin);
+  font-size: 0.72rem;
+  letter-spacing: var(--dcb-track-md);
+  text-transform: uppercase;
+  color: var(--dcb-gold);
+  margin: 0;
+}
+.dcb-eyebrow--muted {
+  color: var(--dcb-text-muted);
+}
+.dcb-eyebrow--cream {
+  color: var(--dcb-cream);
+  opacity: 0.6;
+}
+
+/* ─────────────────────────────  Text  ───────────────────────────── */
+.dcb-text {
+  font-family: var(--dcb-font);
+  font-weight: var(--dcb-weight-light);
+  color: var(--dcb-text);
+  margin: 0;
+  line-height: 1.7;
+}
+.dcb-text--sm {
+  font-size: 0.8rem;
+}
+.dcb-text--md {
+  font-size: 0.95rem;
+}
+.dcb-text--lg {
+  font-size: 1.1rem;
+  font-weight: var(--dcb-weight-thin);
+}
+.dcb-text--muted {
+  color: var(--dcb-text-muted);
+}
+.dcb-text--gold {
+  color: var(--dcb-gold);
+}
+.dcb-text--tracked {
+  letter-spacing: var(--dcb-track-sm);
+  text-transform: uppercase;
+}
+.dcb-text--center {
+  text-align: center;
+}
+
+/* ─────────────────────────────  Divider  ───────────────────────────── */
+.dcb-divider {
+  border: 0;
+  height: 1px;
+  width: 100%;
+  margin: var(--dcb-space-5) 0;
+  background: var(--dcb-border);
+}
+.dcb-divider--gradient {
+  background: linear-gradient(
+    90deg,
+    transparent 5%,
+    rgba(209, 177, 124, 0.35) 50%,
+    transparent 95%
+  );
+}
+.dcb-divider--dot {
+  position: relative;
+  background: transparent;
+  height: 1px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dcb-divider--dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(209, 177, 124, 0.3) 45%,
+    rgba(209, 177, 124, 0.3) 55%,
+    transparent
+  );
+}
+.dcb-divider--dot::after {
+  content: "";
+  position: relative;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--dcb-gold);
+  box-shadow: 0 0 12px rgba(209, 177, 124, 0.6);
+}
+
+/* ─────────────────────────────  Card  ───────────────────────────── */
+.dcb-card {
+  position: relative;
+  background: var(--dcb-surface);
+  border: 1px solid var(--dcb-border);
+  border-radius: var(--dcb-radius-lg);
+  padding: var(--dcb-space-6);
+  color: var(--dcb-text);
+  overflow: hidden;
+}
+.dcb-card--glow::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(209, 177, 124, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.dcb-card--interactive {
+  transition: border-color var(--dcb-transition), transform var(--dcb-transition);
+  cursor: pointer;
+}
+.dcb-card--interactive:hover {
+  border-color: var(--dcb-border-strong);
+  transform: translateY(-3px);
+}
+.dcb-card--pad-sm {
+  padding: var(--dcb-space-5);
+}
+.dcb-card--pad-lg {
+  padding: var(--dcb-space-8);
+}
+.dcb-card__body {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─────────────────────────────  Badge  ───────────────────────────── */
+.dcb-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--dcb-font);
+  font-weight: var(--dcb-weight-regular);
+  font-size: 0.62rem;
+  letter-spacing: var(--dcb-track-sm);
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--dcb-radius-pill);
+  line-height: 1;
+}
+.dcb-badge--solid {
+  background: var(--dcb-gold-gradient);
+  color: var(--dcb-navy-deep);
+}
+.dcb-badge--outline {
+  background: transparent;
+  color: var(--dcb-gold);
+  border: 1px solid var(--dcb-border-strong);
+}
+.dcb-badge--soft {
+  background: rgba(209, 177, 124, 0.12);
+  color: var(--dcb-gold-light);
+}
+
+/* ─────────────────────────────  Field (Input / Textarea)  ───────────────────────────── */
+.dcb-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dcb-space-2);
+  width: 100%;
+}
+.dcb-field__label {
+  font-family: var(--dcb-font);
+  font-weight: var(--dcb-weight-light);
+  font-size: 0.68rem;
+  letter-spacing: var(--dcb-track-sm);
+  text-transform: uppercase;
+  color: var(--dcb-text-muted);
+}
+.dcb-input,
+.dcb-textarea {
+  font-family: var(--dcb-font);
+  font-weight: var(--dcb-weight-light);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: var(--dcb-white);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--dcb-border);
+  border-radius: var(--dcb-radius-md);
+  padding: 14px 16px;
+  width: 100%;
+  transition: border-color var(--dcb-transition), background var(--dcb-transition);
+}
+.dcb-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+.dcb-input::placeholder,
+.dcb-textarea::placeholder {
+  color: var(--dcb-text-subtle);
+  letter-spacing: 1px;
+}
+.dcb-input:focus,
+.dcb-textarea:focus {
+  outline: none;
+  border-color: var(--dcb-gold);
+  background: rgba(209, 177, 124, 0.04);
+}
+.dcb-input--error,
+.dcb-textarea--error {
+  border-color: #c98b7a;
+}
+.dcb-field__error {
+  font-family: var(--dcb-font);
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  color: #d8a293;
+}
+
+/* ─────────────────────────────  Section  ───────────────────────────── */
+.dcb-section {
+  position: relative;
+  font-family: var(--dcb-font);
+  background: var(--dcb-navy-deep);
+  color: var(--dcb-text);
+  padding: var(--dcb-space-8) var(--dcb-space-5);
+  overflow: hidden;
+}
+.dcb-section--navy {
+  background: var(--dcb-navy);
+}
+.dcb-section--vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, var(--dcb-navy-deep) 100%);
+}
+.dcb-section--center {
+  text-align: center;
+}
+.dcb-section__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.dcb-section--center .dcb-section__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
