@@ -10,8 +10,9 @@ Components are self-styled through the shipped `styles.css` (already loaded) —
 provider to wrap**. But every component assumes a **dark background**; on a white page the gold
 text and hairlines disappear. Put your design on the brand canvas one of two ways:
 
-- Wrap the whole design in the root class: `<div className="dcb-root"> … </div>` (applies the
-  navy background, Raleway font, and light text), **or**
+- Wrap any composition in the **`Surface`** component (the component form of the canvas — dark
+  navy background, Raleway, light text, rounded padding), or the root class
+  `<div className="dcb-root"> … </div>` for a bare full-bleed canvas, **or**
 - Use the `Section` component as the page/section container — it paints the navy background and
   centers an inner column, with an optional edge `vignette`.
 
@@ -41,6 +42,7 @@ library's internals; don't hand-write them. The design language is carried by th
 - **`Badge`** — `variant` (`solid` | `outline` | `soft`).
 - **`Input` / `Textarea`** — `label`, `error`, plus native input/textarea attributes.
 - **`Section`** — `tone` (`deep` | `navy`), `vignette`, `center`.
+- **`Surface`** — `padding` (`flush` | `sm` | `md` | `lg`) — the dark brand canvas box.
 
 For your **own layout glue** (wrappers, spacing, grids), use the design tokens as CSS variables
 so custom bits stay on-brand. Real token names (defined in `styles.css` `:root`):

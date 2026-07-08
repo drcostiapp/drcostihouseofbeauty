@@ -69,6 +69,21 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* ─────────────────────────────  Surface (brand canvas box)  ───────────────────────────── */
+.dcb-surface-canvas {
+  padding: var(--dcb-space-6);
+  border-radius: var(--dcb-radius-lg);
+}
+.dcb-surface-canvas--sm {
+  padding: var(--dcb-space-5);
+}
+.dcb-surface-canvas--lg {
+  padding: var(--dcb-space-8);
+}
+.dcb-surface-canvas--flush {
+  padding: 0;
+}
+
 /* ─────────────────────────────  Button  ───────────────────────────── */
 .dcb-btn {
   --_pad-y: 16px;

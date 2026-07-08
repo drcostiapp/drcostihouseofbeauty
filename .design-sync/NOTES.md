@@ -30,6 +30,14 @@
 - Render/capture is slow (~2 min for 11 cards) because each page waits on the remote font
   fetch. Run validate/capture in the background, not a 2-min foreground call.
 
+## Dark canvas / preview provider
+- The kit is **dark-canvas by design** (white headings, gold accents, gold hairlines). Preview
+  cards render on a white body by default, which makes white `Heading` text invisible and gold
+  hairlines faint. Fix: `cfg.provider = {"component": "Surface"}` wraps every preview cell in the
+  `Surface` canvas (dark navy). `Surface` is a real exported component (the `.dcb-root` canvas in
+  component form) — do not remove it or the provider without replacing the dark background some
+  other way, or the previews regress to invisible-on-white.
+
 ## Known render warns
 - `[FONT_REMOTE] "Raleway"` — expected (see Fonts above).
 

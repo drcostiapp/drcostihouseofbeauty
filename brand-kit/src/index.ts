@@ -32,3 +32,6 @@ export type { TextareaProps } from "./components/Textarea";
 
 export { Section } from "./components/Section";
 export type { SectionProps, SectionTone } from "./components/Section";
+
+export { Surface } from "./components/Surface";
+export type { SurfaceProps, SurfacePadding } from "./components/Surface";
