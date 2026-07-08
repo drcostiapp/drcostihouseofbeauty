@@ -7,5 +7,13 @@
   "cssEntry": "dist/brand-kit.css",
   "docsDir": "docs",
   "readmeHeader": ".design-sync/conventions.md",
-  "provider": { "component": "Surface" }
+  "provider": { "component": "Surface" },
+  "overrides": {
+    "Button": { "cardMode": "column" },
+    "Input": { "cardMode": "column" },
+    "Textarea": { "cardMode": "column" },
+    "Card": { "cardMode": "column" },
+    "Divider": { "cardMode": "column" },
+    "Surface": { "cardMode": "column" }
+  }
 }

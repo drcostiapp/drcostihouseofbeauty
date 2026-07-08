@@ -38,6 +38,12 @@
   component form) — do not remove it or the provider without replacing the dark background some
   other way, or the previews regress to invisible-on-white.
 
+## Card layout (grid overflow)
+- Wide components — Button (long CTA labels), Input, Textarea, Card, Divider, Surface — tripped
+  `[GRID_OVERFLOW]` (their stories are wider than a multi-column grid cell and crop in the
+  product). Fixed with `cfg.overrides.<Name> = {"cardMode": "column"}` (one story per row, full
+  card width). Intentional; column cards can't re-flag `wide`, so this won't recur.
+
 ## Known render warns
 - `[FONT_REMOTE] "Raleway"` — expected (see Fonts above).
 
