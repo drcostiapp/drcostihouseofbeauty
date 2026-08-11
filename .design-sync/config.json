@@ -6,6 +6,7 @@
   "buildCmd": "npm --prefix brand-kit run build",
   "cssEntry": "dist/brand-kit.css",
   "docsDir": "docs",
+  "guidelinesGlob": ["guides/**/*.md"],
   "readmeHeader": ".design-sync/conventions.md",
   "provider": { "component": "Surface" },
   "overrides": {
