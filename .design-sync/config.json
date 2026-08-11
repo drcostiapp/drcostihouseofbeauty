@@ -1,0 +1,20 @@
+{
+  "projectId": "6ad2e26c-7cad-4b63-bf84-2ab85562dccb",
+  "shape": "package",
+  "pkg": "@drcosti/brand-kit",
+  "globalName": "DrCostiBrandKit",
+  "buildCmd": "npm --prefix brand-kit run build",
+  "cssEntry": "dist/brand-kit.css",
+  "docsDir": "docs",
+  "guidelinesGlob": ["guides/**/*.md"],
+  "readmeHeader": ".design-sync/conventions.md",
+  "provider": { "component": "Surface" },
+  "overrides": {
+    "Button": { "cardMode": "column" },
+    "Input": { "cardMode": "column" },
+    "Textarea": { "cardMode": "column" },
+    "Card": { "cardMode": "column" },
+    "Divider": { "cardMode": "column" },
+    "Surface": { "cardMode": "column" }
+  }
+}
